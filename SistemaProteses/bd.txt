@@ -1,0 +1,27 @@
+CREATE TABLE hospital (
+id_hospital int primary key auto_increment,
+razao_social varchar (50) not null,
+nome_fantasia varchar (50) not null,
+cnpj_hospital varchar (18) unique not null);
+
+INSERT INTO hospital (razao_social,nome_fantasia,cnpj_hospital)
+VALUES
+;
+
+
+ALTER TABLE hospital MODIFY COLUMN nome_fantasia varchar(30);
+
+
+CREATE TABLE endereco ( 
+logradouro varchar(50) not null,
+numero int not null,
+bairro varchar (50) not null,
+cep int(8) not null,
+cidade varchar (30) not null,
+estado enum ('AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO') not null,
+nome_contato varchar (30) not null,
+ddd int (2) not null,
+telefone int not null,
+email varchar(50) not null
+);
+
