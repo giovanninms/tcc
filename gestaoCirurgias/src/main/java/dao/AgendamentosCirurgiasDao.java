@@ -1,6 +1,6 @@
 package dao;
 
-import tabelas.AgendamentosCirurgias;
+import tabelas.TbAgendamentosCirurgias;
 
 import java.util.*;
 import java.sql.*;
@@ -13,14 +13,14 @@ public class AgendamentosCirurgiasDao {
 		Connection conexao = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conexao = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/ag_database?sslMode=VERIFY_IDENTITY","gu0b5jwy3w71i5rv7q21","pscale_pw_UxFoeSHGNzEkBNrMJsxepaRbFJOpPxSDu0b8MFeZnJl");
+			conexao = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/ag_database?sslMode=VERIFY_IDENTITY","2vhdqzk32oouy13h1vbp","pscale_pw_POHvHMdnyYFmLxiL8ih5l0uFKnHJh0fiVrZUZCTOo5G");
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 		return conexao;
 	}
 
-	public static int updateAgendamento(AgendamentosCirurgias a) {
+	public static int updateAgendamento(TbAgendamentosCirurgias a) {
 		int status = 0;
 
 		try {
@@ -40,7 +40,7 @@ public class AgendamentosCirurgiasDao {
 		return status;
 	}
 
-	public static int insertAgendamento(AgendamentosCirurgias a) {
+	public static int insertAgendamento(TbAgendamentosCirurgias a) {
 		int status = 0;
 
 		try {
@@ -60,8 +60,8 @@ public class AgendamentosCirurgiasDao {
 		return status;
 	}
 
-	public static List<AgendamentosCirurgias> getAllAgendamentos() {
-		List<AgendamentosCirurgias> lista = new ArrayList<AgendamentosCirurgias>();
+	public static List<TbAgendamentosCirurgias> getAllAgendamentos() {
+		List<TbAgendamentosCirurgias> lista = new ArrayList<TbAgendamentosCirurgias>();
 		try {
 			Connection conexao = getConnection();
 			PreparedStatement pst = conexao.prepareStatement(selectString);
@@ -69,7 +69,7 @@ public class AgendamentosCirurgiasDao {
 
 			while (rs.next()) {
 
-				AgendamentosCirurgias agendamentos = new AgendamentosCirurgias();
+				TbAgendamentosCirurgias agendamentos = new TbAgendamentosCirurgias();
 				agendamentos.setIdAgendamento(rs.getInt("idagendamentos_cirurgias"));
 				agendamentos.setLocalCorpo(rs.getString("local_corpo"));
 				agendamentos.setTipoCirurgia(rs.getString("tipo_cirurgia"));
@@ -84,8 +84,8 @@ public class AgendamentosCirurgiasDao {
 		return lista;
 	}
 
-	public static AgendamentosCirurgias getRegistroById(int idAgendamento) {
-		AgendamentosCirurgias agendamentosCirurgias = null;
+	public static TbAgendamentosCirurgias getRegistroById(int idAgendamento) {
+		TbAgendamentosCirurgias agendamentosCirurgias = null;
 
 		try {
 			Connection conexao = getConnection();
@@ -95,7 +95,7 @@ public class AgendamentosCirurgiasDao {
 			ResultSet rs = pst.executeQuery();
 
 			while (rs.next()) {
-				agendamentosCirurgias = new AgendamentosCirurgias();
+				agendamentosCirurgias = new TbAgendamentosCirurgias();
 				agendamentosCirurgias.setIdAgendamento(rs.getInt("idagendamentos_cirurgias"));
 				agendamentosCirurgias.setLocalCorpo(rs.getString("local_corpo"));
 				agendamentosCirurgias.setTipoCirurgia(rs.getString("tipo_cirurgia"));
@@ -110,7 +110,7 @@ public class AgendamentosCirurgiasDao {
 		return agendamentosCirurgias;
 	}
 
-	public static int deletarAgendamento(AgendamentosCirurgias ca) {
+	public static int deletarAgendamento(TbAgendamentosCirurgias ca) {
 		int status = 0;
 		try {
 			Connection conexao = getConnection();

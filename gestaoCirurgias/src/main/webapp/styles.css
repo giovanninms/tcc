@@ -97,15 +97,19 @@ h2{
 table{    
     margin: auto;
     background-color: #FFF;
+    position: relative;
+
 }
 
 .linhatabela{
     padding: 5px;
+    
 }
-
+	
 
 .colunacentralizar{
     text-align: center;
+    
 }
 
 form{
@@ -132,4 +136,14 @@ td select{
 }
 table{
 	margin-top: 20px;
+	position: relative;
+}
+div{
+	max-height: 300px;
+	overflow: scroll;
+}
+thead > tr > th{
+	position: sticky;
+	top: -1px;
+	background-color:#1F7A8C ;
 }

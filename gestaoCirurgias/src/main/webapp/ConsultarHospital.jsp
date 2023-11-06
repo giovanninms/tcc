@@ -34,16 +34,16 @@
             TbHospital objhospital = HospitalDao.getRegistroById(Integer.parseInt(id)); 
         %>
         
-        <a href="ConsultarHospitais.jsp"><img src="./img/voltar.svg" alt="voltar" class="btn-2"/></a>
-        <h2>Editar Hospital</h2>
+        <a href="ConsultaHospitais.jsp"><img src="./img/voltar.svg" alt="voltar" class="btn-2"/></a>
+        <h2>Vizualizar Hospital</h2>
              
-        <form action="EditarHospital.jsp" method="post">   
+        <form action="GatilhoAlterarHospital.jsp" method="post">   
             <table style="background-color: transparent">                
                 <tr><td>Código Hospital: <input class="text_input" type="text" name="idHospital" value="<%=objhospital.getIdHospital()%>" readonly="readonly"/></td></tr>                
-                <tr><td>Razão Social: <input class="text_input" type="text" name="razaoSocial" value="<%=objhospital.getRazaoSocial()%>" required/></td></tr>                 
-                <tr><td>Nome Fantasia: <input class="text_input" type="text" name="nomeFantasia" value="<%=objhospital.getNomeFantasia()%>" required/></td></tr>                
+                <tr><td>Razão Social: <input class="text_input" type="text" name="razaoSocial" value="<%=objhospital.getRazaoSocial()%>" readonly="readonly"/></td></tr>                 
+                <tr><td>Nome Fantasia: <input class="text_input" type="text" name="nomeFantasia" value="<%=objhospital.getNomeFantasia()%>" readonly="readonly"/></td></tr>                
                 <tr><td>CNPJ: <input class="text_input" type="text" name="cnpjHospital" value="<%=objhospital.getCnpjHospital()%>" readonly="readonly"/></td></tr>                
-                <tr><td><input onclick="" class="btn-enviar" type="submit" value="Salvar"></td>
+               <tr> <td><input onclick="" class="btn-enviar" type="submit" value="Salvar"></td>
             </table>           
         </form>
     
