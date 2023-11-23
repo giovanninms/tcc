@@ -1,0 +1,87 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: block;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+main {
+    display: flex;
+}
+
+section {
+
+    display: block;
+}
+
+
+.coluna_login {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 500px;
+    min-height: 100vh;
+
+}
+
+.coluna_wallpaper {
+
+    width: 100%;
+    background-image: url(./img/login.jpg);
+    background-size: cover;
+    background-position: center;
+    flex: 1;
+    opacity: 30%;
+}
+
+.login {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50%;
+    padding-bottom: 50px;
+
+}
+
+.texto_wallpaper {
+    text-align: center;
+    z-index: 1;
+    margin-top: -30%;
+    margin-left: 35%;
+}
+
+.input {
+    width: 300px;
+    height: 30px;
+    border-radius: 10px;
+    border-style: none;
+    border: 1px solid #000;
+}
+
+label {
+    padding: 5px;
+}
+
+.botoes {
+    display: flex;
+    gap: 10px;
+    width: 50%;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.icones_botoes {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    border-radius: 5px;
+
+}
