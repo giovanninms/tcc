@@ -20,8 +20,8 @@
                 <h2>Faça seu acesso</h2>
                 
                 <form action="GatilhoLogin.jsp" method="post">                
-                    <input type="text" name="username" class="input" placeholder="Login">               
-                    <input type="text" name="password" class="input" placeholder="Senha">
+                    <input type="text" name="loginUsuario" class="input" placeholder="Login" required>               
+                    <input type="text" name="senhaUsuario" class="input" placeholder="Senha" required>
                 <div class="botoes">
                     <input type="submit" class="icones_botoes" value="Entrar"></input>
                 </div>

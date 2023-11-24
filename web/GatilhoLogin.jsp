@@ -5,12 +5,21 @@
 --%>
 
 <%@page import="DAO.*"%>
-<jsp:useBean id="h" class="Tabelas.TbUsuario"></jsp:useBean>
+<jsp:useBean id="h" class="Tabelas.TbUsuarios"></jsp:useBean>
 <jsp:setProperty property="*" name ="h"/>
 <%
    
-    int i = ConexaoDAO.ValidarUsuario(h);    
+    h.setLoginUsuario(request.getParameter("loginUsuario"));
+    h.setSenhaUsuario(request.getParameter("senhaUsuario"));
+    int i = UsuarioDao.ValidarUsuario(h);
+
+    if (i == 1){
     response.sendRedirect("index.jsp");
+    }
+    else {
+    response.sendRedirect("PaginaErro.jsp");
+    }
+    
     
     
 

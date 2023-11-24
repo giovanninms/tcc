@@ -121,7 +121,44 @@ public class UsuarioDao {
         }
         return status;       
     }
-   
+   public static int ValidarUsuario(TbUsuarios h){
+        int status = 0;
+        
+        try {
+            boolean usuarioValidado = false;
+            boolean senhaValidado = false;
+            Connection con = getConnection();
+            
+            PreparedStatement ps1 = (PreparedStatement) con.prepareStatement("SELECT * from usuarios WHERE login_usuario=?");         
+            ps1.setString(1, h.getLoginUsuario()); 
+            ResultSet rs1 = ps1.executeQuery();
+            
+            PreparedStatement ps2 = (PreparedStatement) con.prepareStatement("SELECT * from usuarios WHERE senha_usuario=?");
+            ps2.setString(1, h.getSenhaUsuario());
+            ResultSet rs2 = ps2.executeQuery();
+            
+            while (rs1.next()){
+                
+                if (rs1.getString("login_usuario").equals(h.getLoginUsuario())){
+                    usuarioValidado = true;
+                }
+            }
+                
+            while (rs2.next()){
+                
+                if (rs2.getString("senha_usuario").equals(h.getSenhaUsuario())){
+                    senhaValidado = true;
+                }
+            }
+            if (usuarioValidado == true && senhaValidado == true){
+                 status = 1; 
+            }   
+        
+        } catch (Exception e){
+            System.out.println("Erro ao logar. Erro: "+e);
+        }
+        return status;       
+    }
    
     }
 
