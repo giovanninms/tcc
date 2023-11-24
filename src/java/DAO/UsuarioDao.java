@@ -122,6 +122,7 @@ public class UsuarioDao {
         return status;       
     }
    public static int ValidarUsuario(TbUsuarios h){
+        
         int status = 0;
         
         try {
@@ -151,7 +152,8 @@ public class UsuarioDao {
                 }
             }
             if (usuarioValidado == true && senhaValidado == true){
-                 status = 1; 
+                 status = 1;
+                 
             }   
         
         } catch (Exception e){
@@ -159,6 +161,7 @@ public class UsuarioDao {
         }
         return status;       
     }
+   
    
     }
 

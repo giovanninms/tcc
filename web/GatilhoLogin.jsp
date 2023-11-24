@@ -17,7 +17,7 @@
     response.sendRedirect("TelaInicial.jsp");
     }
     else {
-    response.sendRedirect("PaginaErro.jsp");
+    response.sendRedirect("ErroLogin.jsp");
     }
     
     

@@ -5,7 +5,25 @@
 --%>
 
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="DAO.UsuarioDao, Tabelas.TbUsuarios"%>
 
+<jsp:useBean id="h" class="Tabelas.TbUsuarios"></jsp:useBean>
+<jsp:setProperty property="*" name ="h"/>
+ 
+<%
+    UsuarioDao objusuarios = new UsuarioDao();
+    
+    int i = objusuarios.ValidarUsuario(h);
+    
+
+    if (i == 1){
+    response.sendRedirect("ConsultaHospital.jsp");
+    }
+    else {
+    response.sendRedirect("index.jsp");
+    }
+ 
+%>
 
 <!DOCTYPE html>
 <html>

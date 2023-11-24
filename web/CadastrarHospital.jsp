@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="DAO.ConexaoDAO, Tabelas.TbHospital"%>
+
 <!DOCTYPE html>
 <html>
     <head>
