@@ -40,7 +40,7 @@
                 </td></tr>
                 <tr><td>Nome Completo: <input class="text_input" type="text" name="nomeUsuario" value="" required/></td></tr>
                 <tr><td>E-mail: <input class="text_input" type="text" name="emailUsuario" value="" required/></td></tr>
-                <tr><td>Telefone: <input class="text_input" type="number" name="nomeUsuario" value="" required/></td></tr>
+                <tr><td>Telefone: <input class="text_input" type="number" name="telefoneUsuario" value="" required/></td></tr>
                 <td><input onclick="" class="btn-enviar" type="submit" value="Salvar"></td>
             </table>        
         </form>

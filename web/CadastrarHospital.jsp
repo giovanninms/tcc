@@ -32,7 +32,7 @@
         <a href="ConsultaHospitais.jsp"><img src="./img/voltar.svg" alt="voltar" class="btn-2"/></a>
         <h2>Cadastrar Hospital</h2>   
         
-        <form action="InserirHospital.jsp" method="post">
+        <form action="GatilhoCadastrarHospital.jsp" method="post">
             <table style="background-color: transparent">                                            
                 <tr><td>Razão Social: <input class="text_input" type="text" name="razaoSocial" required/></td></tr>                 
                 <tr><td>Nome Fantasia: <input class="text_input" type="text" name="nomeFantasia" value="" required/></td></tr>                

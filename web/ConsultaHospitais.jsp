@@ -10,7 +10,7 @@
 <jsp:useBean id="h" class="Tabelas.TbUsuarios"></jsp:useBean>
 <jsp:setProperty property="*" name ="h"/>
  
-<%
+<%--
     UsuarioDao objusuarios = new UsuarioDao();
     
     int i = objusuarios.ValidarUsuario(h);
@@ -23,7 +23,7 @@
     response.sendRedirect("index.jsp");
     }
  
-%>
+--%>
 
 <!DOCTYPE html>
 <html>
