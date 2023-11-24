@@ -14,7 +14,7 @@
     int i = UsuarioDao.ValidarUsuario(h);
 
     if (i == 1){
-    response.sendRedirect("index.jsp");
+    response.sendRedirect("TelaInicial.jsp");
     }
     else {
     response.sendRedirect("PaginaErro.jsp");
