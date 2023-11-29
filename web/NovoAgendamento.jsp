@@ -7,6 +7,13 @@
 <title>Insert title here</title>
 </head>
 <body>
+    <%
+            String usuario = (String) session.getAttribute("loginUsuario");
+            if (usuario == null){
+                response.sendRedirect("index.jsp");
+            }
+            
+        %>
 	<%@page import="Tabelas.AgendamentosCirurgias, DAO.AgendamentosCirurgiasDao, java.text.SimpleDateFormat, java.sql.Date" %>
 	
 	<form action="GatilhoNovoAgendamento.jsp" method="post">

@@ -16,8 +16,15 @@
     </head>
     
     <body>
+        <%
+            String usuario = (String) session.getAttribute("loginUsuario");
+            if (usuario == null){
+                response.sendRedirect("index.jsp");
+            }
+            
+        %>
         <header>
-            <a href="index.jsp" ><img src="./img/home.svg" alt="home" class="btn-home" title="Tela Inicial"/></a>
+            <a href="TelaInicial.jsp" ><img src="./img/home.svg" alt="home" class="btn-home" title="Tela Inicial"/></a>
         </header>     
         <h1 class="itens-header">SGPO - SISTEMA DE GESTÃO DE PRÓTESES ORTOPÉDICAS</h1> 
         

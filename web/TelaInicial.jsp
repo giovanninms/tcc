@@ -15,10 +15,19 @@
     </head>
      
     <body>
+        
+        <%
+            String usuario = (String) session.getAttribute("loginUsuario");
+            if (usuario == null){
+                response.sendRedirect("index.jsp");
+            }
+            
+        %>
         <%@ page import="DAO.ConexaoDAO, java.util.*, Tabelas.TbHospital"%>
         <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         <header>
-            <a href="index.jsp" ><img src="./img/home.svg" alt="home" class="btn-home" title="Tela Inicial"/></a>
+            <a href="TelaInicial.jsp" ><img src="./img/home.svg" alt="home" class="btn-home" title="Tela Inicial"/></a>
+            <a href="Deslogar.jsp" ><img src="./img/deletar.svg" alt="sair" class="btn-home" title="Sair"/></a>
         </header>  
         <main>
             <h1 class="itens-header">SGPO - SISTEMA DE GESTÃO DE PRÓTESES ORTOPÉDICAS</h1> 

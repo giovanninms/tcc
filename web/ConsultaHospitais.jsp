@@ -10,20 +10,7 @@
 <jsp:useBean id="h" class="Tabelas.TbUsuarios"></jsp:useBean>
 <jsp:setProperty property="*" name ="h"/>
  
-<%--
-    UsuarioDao objusuarios = new UsuarioDao();
-    
-    int i = objusuarios.ValidarUsuario(h);
-    
 
-    if (i == 1){
-    response.sendRedirect("ConsultaHospital.jsp");
-    }
-    else {
-    response.sendRedirect("index.jsp");
-    }
- 
---%>
 
 <!DOCTYPE html>
 <html>
@@ -35,8 +22,15 @@
         <link rel="stylesheet" href="styles.css"/>
     </head>
     <body>
+        <%
+            String usuario = (String) session.getAttribute("loginUsuario");
+            if (usuario == null){
+                response.sendRedirect("index.jsp");
+            }
+            
+        %>
         <header>
-            <a href="index.jsp" ><img src="./img/home.svg" alt="home" class="btn-home" title="Tela Inicial"/></a>
+            <a href="TelaInicial.jsp" ><img src="./img/home.svg" alt="home" class="btn-home" title="Tela Inicial"/></a>
         </header>     
         <h1 class="itens-header">SGPO - SISTEMA DE GESTÃO DE PRÓTESES ORTOPÉDICAS</h1> 
         <%@ page import="DAO.ConexaoDAO, java.util.*, Tabelas.TbHospital"%>

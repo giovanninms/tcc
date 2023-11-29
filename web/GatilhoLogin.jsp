@@ -12,8 +12,10 @@
     h.setLoginUsuario(request.getParameter("loginUsuario"));
     h.setSenhaUsuario(request.getParameter("senhaUsuario"));
     int i = UsuarioDao.ValidarUsuario(h);
+    String usuario = "";
 
     if (i == 1){
+    session.setAttribute("loginUsuario", usuario);
     response.sendRedirect("TelaInicial.jsp");
     }
     else {

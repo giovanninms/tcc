@@ -10,6 +10,7 @@
    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./img/junta.png" type="image/png">
     <title>SGPO - Sistema de Gestão de Próteses Ortopédicas</title>
     <link rel="stylesheet" href="styles2.css">
 
@@ -27,7 +28,8 @@
                 </div>
             </div>
             </form>
-
+               
+            
                 
         </section>
 
@@ -41,6 +43,6 @@
         <h1>SGPO - Sistema de Gestão de Próteses Ortopédicas</h1>
         <h2>A&G Soluções Tecnológicas</h2>
     </div>
-
+    
 </body>
 </html>
