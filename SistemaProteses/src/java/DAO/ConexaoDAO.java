@@ -24,6 +24,7 @@ public class ConexaoDAO {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sgpo","root","1234");
+            //con = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/ag_database?sslMode=VERIFY_IDENTITY","gu0b5jwy3w71i5rv7q21","pscale_pw_UxFoeSHGNzEkBNrMJsxepaRbFJOpPxSDu0b8MFeZnJl");
             System.out.println("Conexão com o banco realizada com sucesso");
         } catch (Exception e) {
             System.out.println("Não conectou no banco de dados. Erro:"+e);
