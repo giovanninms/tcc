@@ -10,7 +10,6 @@
    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="./img/junta.png" type="image/png">
     <title>SGPO - Sistema de Gestão de Próteses Ortopédicas</title>
     <link rel="stylesheet" href="styles2.css">
 
@@ -18,18 +17,17 @@
     <main>
         <section class="coluna_login">
             <div class="login">
-                <h2>Faça seu acesso</h2>
+                <h2>Erro ao logar</h2>
+                <h3>Login ou senha inválido</h3>
                 
-                <form action="GatilhoLogin.jsp" method="post">                
-                    <input type="text" name="loginUsuario" class="input" placeholder="Login" required>               
-                    <input type="password" name="senhaUsuario" class="input" placeholder="Senha" required>
+                <form action="index.jsp" method="post">                
+                    
                 <div class="botoes">
-                    <input type="submit" class="icones_botoes" value="Entrar"></input>
+                    <input type="submit" class="icones_botoes" value="Retornar"></input>
                 </div>
             </div>
             </form>
-               
-            
+
                 
         </section>
 
@@ -43,6 +41,6 @@
         <h1>SGPO - Sistema de Gestão de Próteses Ortopédicas</h1>
         <h2>A&G Soluções Tecnológicas</h2>
     </div>
-    
+
 </body>
 </html>

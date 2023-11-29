@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="DAO.ConexaoDAO, Tabelas.TbHospital"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,16 +15,18 @@
         <link rel="stylesheet" href="styles.css"/>
         <title>SGPO - Cadastrar Hospital</title>
     </head>
-    <script>
-        function AlertaAlteracao()
-        {
-            alert("Hospital cadastrado com sucesso.");
-            
-        }
-    </script>
+  
     <body>
+        
+        <%
+            String usuario = (String) session.getAttribute("loginUsuario");
+            if (usuario == null){
+                response.sendRedirect("index.jsp");
+            }
+            
+        %>
         <header>
-            <a href="index.jsp" ><img src="./img/home.svg" alt="home" class="btn-home" title="Tela Inicial"/></a>
+            <a href="TelaInicial.jsp" ><img src="./img/home.svg" alt="home" class="btn-home" title="Tela Inicial"/></a>
         </header>     
         <h1 class="itens-header">SGPO - SISTEMA DE GESTÃO DE PRÓTESES ORTOPÉDICAS</h1>   
                             
@@ -31,7 +34,7 @@
         <a href="ConsultaHospitais.jsp"><img src="./img/voltar.svg" alt="voltar" class="btn-2"/></a>
         <h2>Cadastrar Hospital</h2>   
         
-        <form action="InserirHospital.jsp" method="post">
+        <form action="GatilhoCadastrarHospital.jsp" method="post">
             <table style="background-color: transparent">                                            
                 <tr><td>Razão Social: <input class="text_input" type="text" name="razaoSocial" required/></td></tr>                 
                 <tr><td>Nome Fantasia: <input class="text_input" type="text" name="nomeFantasia" value="" required/></td></tr>                
