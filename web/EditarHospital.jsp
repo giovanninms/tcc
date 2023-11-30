@@ -42,11 +42,19 @@
              
         <form action="GatilhoEditarHospital.jsp" method="post">   
             <table style="background-color: transparent;">                
-                <tr style="background-color: transparent; color:black;"><td>Código Hospital: <input class="text_input" type="text" name="idHospital" value="<%=objhospital.getIdHospital()%>" readonly="readonly"/></td></tr>                
+                <tr style="background-color: transparent; color:black;">Código Hospital: <td><input class="text_input" type="text" name="idHospital" value="<%=objhospital.getIdHospital()%>" readonly="readonly"/></td></tr>                
                 <tr style="background-color: transparent; color:black;"><td>Razão Social: <input class="text_input" type="text" name="razaoSocial" value="<%=objhospital.getRazaoSocial()%>" required/></td></tr>                 
                 <tr style="background-color: transparent; color:black;"><td>Nome Fantasia: <input class="text_input" type="text" name="nomeFantasia" value="<%=objhospital.getNomeFantasia()%>" required/></td></tr>                
                 <tr style="background-color: transparent; color:black;"><td>CNPJ: <input class="text_input" type="text" name="cnpjHospital" value="<%=objhospital.getCnpjHospital()%>"/></td></tr>                
                 <tr style="background-color: transparent; color:black;"><td><input onclick="" class="btn-enviar" type="submit" value="Salvar"></td></tr>
+            </table>  
+                
+                Código Hospital: <input class="text_input" style="width: 100px;" type="text" name="idHospital" value="<%=objhospital.getIdHospital()%>" readonly="readonly"/>              
+                Razão Social: <input class="text_input" type="text" name="razaoSocial" value="<%=objhospital.getRazaoSocial()%>" required/>                 
+                Nome Fantasia: <input class="text_input" type="text" name="nomeFantasia" value="<%=objhospital.getNomeFantasia()%>" required/>              
+                CNPJ: <input class="text_input" type="text" name="cnpjHospital" value="<%=objhospital.getCnpjHospital()%>"/>              
+                <input onclick="" class="btn-enviar" type="submit" value="Salvar">
+                
             </table>           
         </form>
     
