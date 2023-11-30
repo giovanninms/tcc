@@ -40,7 +40,7 @@
         <a href="ConsultaHospitais.jsp"><img src="./img/voltar.svg" alt="voltar" class="btn-2"/></a>
         <h2>Deletar Hospital</h2>
              
-        <form action="ConfirmaDeletarHospital.jsp" method="post">   
+        <form action="GatilhoDeletarHospital.jsp" method="post">   
             <table style="background-color: transparent">                
                 <tr><td>Código Hospital: <input class="text_input" type="text" name="idHospital" value="<%=objhospital.getIdHospital()%>" readonly="readonly"/></td></tr>                
                 <tr><td>Razão Social: <input class="text_input" type="text" name="razaoSocial" value="<%=objhospital.getRazaoSocial()%>"/></td></tr>                 
