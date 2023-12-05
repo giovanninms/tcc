@@ -1,0 +1,148 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 26 de out. de 2023, 19:38:49
+    Author     : adolf
+*/
+* {
+    margin: 0;
+    padding: 0;
+    font-family:'Roboto', sans-serif; 
+}
+
+header{
+    margin-top: 1em;
+    margin-bottom: 1em;
+    width: 100%;	
+     
+}
+
+body {
+    background-color: #E1E5F2;
+    
+}
+
+
+button{
+    width: 100px;
+    
+}
+
+.btn-home{
+    color: #1F7A8C;
+    border-color: #1F7A8C;  
+    width: 40px;
+    height: 40px;
+    margin-left: 1em;
+}
+
+.btn-principal{
+    border: transparent;
+    margin: 1em;
+    color: #1F7A8C;
+    border-radius: 10px;    
+    height: auto;     
+}
+
+.btn-principal:hover{    
+    cursor: pointer;
+    border: 2px solid #1F7A8C;
+    
+    
+}
+
+.btn-config{
+    color: #1F7A8C;
+    border-color: #1F7A8C;  
+    
+}
+
+.btn-enviar{
+    background-color: #006400;
+    color: white;
+    border-color: transparent;
+    width: 80px;
+    height: 30px;
+    border-radius: 10px;
+}
+.btn-enviar:hover, .btn-home:hover, .btn-2:hover, .btn-tabela:hover{
+    cursor: pointer;
+    transform: scale(1.05);
+}
+.btn-2{
+    width: 50px;
+    height: 50px;
+    margin-left: 1em;
+}
+
+.btn-tabela{
+    width: 30px;
+    height: 30px;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+
+h1{
+    color: #1F7A8C;
+    text-align: center;
+}
+h2{
+    text-align: center;
+    color: #1F7A8C;
+    margin: 1em;
+}
+
+table{    
+    margin: auto;
+    background-color: #FFF;
+    position: relative;
+
+}
+
+.linhatabela{
+    padding: 5px;
+    
+}
+	
+
+.colunacentralizar{
+    text-align: center;
+    
+}
+
+form{
+    width: 80%;
+    margin: auto;
+}
+
+
+td input{
+	height: 30px;
+    margin-top: 1em;
+    width: 100%;	
+}
+
+td select{
+	height: 30px;
+    margin-top: 1em;
+    width: 100%;	
+}
+.selctNovoAgendamento{
+	height: 30px;
+    margin-top: 1em;
+    width: 185px;
+}
+table{
+	margin-top: 10px;
+	position: relative;
+	font-size: 70%;
+}
+
+thead > tr > th{
+	position: sticky;
+	top: -1px;
+	background-color:#1F7A8C ;
+}
