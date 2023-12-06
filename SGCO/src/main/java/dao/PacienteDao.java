@@ -2,6 +2,10 @@ package dao;
 
 import java.sql.*;
 import java.util.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import tabelas.TbPaciente;
 
 public class PacienteDao {
@@ -46,7 +50,7 @@ public class PacienteDao {
 		return lista;
 	}
 	
-	public static int insertPaciente(TbPaciente c) {
+	public static int insertPaciente(TbPaciente c, HttpServletRequest request) {
 		int status = 0;
 		String sqlString = ("insert into pacientes (nome, data_nascimento, RG, CPF, celular, altura_cm, peso_kg, sexo, email) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		try {
@@ -63,9 +67,15 @@ public class PacienteDao {
 			pst.setString(9, c.getEmail());
 			status = pst.executeUpdate();
 			
-		} catch (Exception e) {
-			System.out.println("ERRO AO CADASTRAR PACIENTE " + e);
-		}
+		} catch (SQLException e) {
+			HttpSession session = request.getSession();
+
+			if (e.getErrorCode() == 1062) {
+
+				session.setAttribute("erroInsercao",
+						"DADOS DUPLICADO! VERIFIQUE E TENTE NOVAMENTE ");
+			}
+		}	
 		return status;
 	}
 	
@@ -99,7 +109,7 @@ public class PacienteDao {
 		return paciente;
 	}
 	
-	public static int deletarPaciente(TbPaciente idPaciente) {
+	public static int deletarPaciente(TbPaciente idPaciente, HttpServletRequest request) {
 		int status = 0;
 		try {
 			Connection conexao = getConnection();
@@ -107,8 +117,14 @@ public class PacienteDao {
 					.prepareStatement("DELETE FROM pacientes WHERE id_paciente=?");
 			pst.setInt(1, idPaciente.getIdPaciente());
 			status = pst.executeUpdate();
-		} catch (Exception e) {
-			System.out.println("ERRO NO BANCO " + e);
+		} catch (SQLException e) {
+			HttpSession session = request.getSession();
+
+			if (e.getErrorCode() == 1451) {
+
+				session.setAttribute("erroInsercao",
+						"NÃO FOI POSSIVEL EXLUIR PACIENTE! AGENDAMENTO EM ANDAMENTO ");
+			}
 		}
 		return status;
 	}
@@ -135,5 +151,95 @@ public class PacienteDao {
 			System.out.println("ERRO NO BANCO " + e);
 		}
 		return status;
+	}
+	public static List<TbPaciente> getRegistroByNome(String nomeMedico) {
+		List<TbPaciente> lista = new ArrayList<TbPaciente>();
+		String sqllike = "%" + nomeMedico + "%";
+		try {
+			Connection conexao = getConnection();
+			PreparedStatement pst = (PreparedStatement) conexao
+					.prepareStatement("select * from pacientes where nome like ?");
+			pst.setString(1, sqllike);
+			ResultSet rs = pst.executeQuery();
+
+			while (rs.next()) {
+				TbPaciente paciente = new TbPaciente();
+				paciente.setIdPaciente(rs.getInt("id_paciente"));
+				paciente.setNomePaciente(rs.getString("nome"));
+				paciente.setDataNascimento(rs.getDate("data_nascimento"));
+				paciente.setRgPaciente(rs.getString("RG"));
+				paciente.setCpfPaciente(rs.getString("CPF"));
+				paciente.setCelular(rs.getString("celular"));
+				paciente.setAlturaCm(rs.getInt("altura_cm"));
+				paciente.setPesoKg(rs.getFloat("peso_kg"));
+				paciente.setSexo(rs.getString("sexo"));
+				paciente.setEmail(rs.getString("email"));
+				lista.add(paciente);
+			}
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return lista;
+	}
+	public static List<TbPaciente> getRegistroByRg(String rg) {
+		List<TbPaciente> lista = new ArrayList<TbPaciente>();
+		String sqllike = rg + "%";
+		try {
+			Connection conexao = getConnection();
+			PreparedStatement pst = (PreparedStatement) conexao
+					.prepareStatement("select * from pacientes where RG like ?");
+			pst.setString(1, sqllike);
+			ResultSet rs = pst.executeQuery();
+
+			while (rs.next()) {
+				TbPaciente paciente = new TbPaciente();
+				paciente.setIdPaciente(rs.getInt("id_paciente"));
+				paciente.setNomePaciente(rs.getString("nome"));
+				paciente.setDataNascimento(rs.getDate("data_nascimento"));
+				paciente.setRgPaciente(rs.getString("RG"));
+				paciente.setCpfPaciente(rs.getString("CPF"));
+				paciente.setCelular(rs.getString("celular"));
+				paciente.setAlturaCm(rs.getInt("altura_cm"));
+				paciente.setPesoKg(rs.getFloat("peso_kg"));
+				paciente.setSexo(rs.getString("sexo"));
+				paciente.setEmail(rs.getString("email"));
+				lista.add(paciente);
+			}
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return lista;
+	}
+	public static List<TbPaciente> getRegistroByCpf(String cpf) {
+		List<TbPaciente> lista = new ArrayList<TbPaciente>();
+		String sqllike = cpf + "%";
+		try {
+			Connection conexao = getConnection();
+			PreparedStatement pst = (PreparedStatement) conexao
+					.prepareStatement("select * from pacientes where CPF like ?");
+			pst.setString(1, sqllike);
+			ResultSet rs = pst.executeQuery();
+
+			while (rs.next()) {
+				TbPaciente paciente = new TbPaciente();
+				paciente.setIdPaciente(rs.getInt("id_paciente"));
+				paciente.setNomePaciente(rs.getString("nome"));
+				paciente.setDataNascimento(rs.getDate("data_nascimento"));
+				paciente.setRgPaciente(rs.getString("RG"));
+				paciente.setCpfPaciente(rs.getString("CPF"));
+				paciente.setCelular(rs.getString("celular"));
+				paciente.setAlturaCm(rs.getInt("altura_cm"));
+				paciente.setPesoKg(rs.getFloat("peso_kg"));
+				paciente.setSexo(rs.getString("sexo"));
+				paciente.setEmail(rs.getString("email"));
+				lista.add(paciente);
+			}
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return lista;
 	}
 }

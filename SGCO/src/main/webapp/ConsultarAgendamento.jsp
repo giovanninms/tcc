@@ -1,9 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : 24 de out. de 2023, 21:17:37
-    Author     : adolf
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -41,7 +35,6 @@
 		response.sendRedirect("Login.jsp");
 		
 	}
-	out.println("Bem Vindo "  +  session.getAttribute("loginUsuario"));
 
 	List<TbAgendamentosCirurgias> lista = AgendamentosCirurgiasDao.getAllAgendamentos();
 	request.setAttribute("lista", lista);

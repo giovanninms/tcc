@@ -2,6 +2,10 @@ package dao;
 
 import tabelas.TbComponentes;
 import java.util.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import java.sql.*;
 
 import com.mysql.jdbc.PreparedStatement;
@@ -38,8 +42,7 @@ public class ComponentesDao {
 				componentes.setQuantidadeComponentes(rs.getInt("quantidade"));
 				componentes.setCirurgiaUtilizada(rs.getString("cirurgia_utilizada"));
 				lista.add(componentes);
-				System.out.println("fumegou");
-				System.out.println(rs.getInt("id_componentes"));
+				
 			}
 			
 		} catch (Exception e) {
@@ -51,11 +54,13 @@ public class ComponentesDao {
 	
 	public static List<TbComponentes> getRegistroByCodigo(int codigoComponente) {
 		List<TbComponentes> lista = new ArrayList<TbComponentes>();
+		String sqllike = codigoComponente + "%";
+
 		
 		try {
 			Connection conexao = getConnection();
-			PreparedStatement pst = (PreparedStatement) conexao.prepareStatement("select * from componentes where codigo_componente=?");
-			pst.setInt(1, codigoComponente);
+			PreparedStatement pst = (PreparedStatement) conexao.prepareStatement("select * from componentes where codigo_componente like ?");
+			pst.setString(1, sqllike);
 			ResultSet rs = pst.executeQuery();
 
 			while (rs.next()) {
@@ -76,12 +81,12 @@ public class ComponentesDao {
 	
 	public static List<TbComponentes> getRegistroByNome(String nomeComponente) {
 		List<TbComponentes> lista = new ArrayList<TbComponentes>();
-		
+		String sqllike = "%" + nomeComponente + "%";
 		try {
 			Connection conexao = getConnection();
 			PreparedStatement pst = (PreparedStatement) conexao
-					.prepareStatement("select * from componentes where nome_componente=?");
-			pst.setString(1, nomeComponente);
+					.prepareStatement("select * from componentes where nome_componente like ?");
+			pst.setString(1, sqllike);
 			ResultSet rs = pst.executeQuery();
 
 			while (rs.next()) {
@@ -172,7 +177,7 @@ public class ComponentesDao {
 		return status;
 	}
 	
-	public static int insertComponente(TbComponentes c) {
+	public static int insertComponente(TbComponentes c, HttpServletRequest request) {
 	    int status = 0;
 	    
 	        try {
@@ -184,9 +189,30 @@ public class ComponentesDao {
 	            pst.setInt(3, c.getQuantidadeComponentes());
 	            pst.setString(4, c.getCirurgiaUtilizada());
 	            status = pst.executeUpdate();
-	        } catch (Exception e) {
+	        } catch (SQLException e) {
+	        	HttpSession session = request.getSession();
+
+				if (e.getErrorCode() == 1062) {
+
+					session.setAttribute("erroInsercao",
+							"DADOS DUPLICADO! VERIFIQUE E TENTE NOVAMENTE ");
+				}
 	            System.out.println("ERRO NO BANCO " + e);
 	        }
 	        return status;
 	    }
+	
+	public static int deletarComponente(TbComponentes idComponente) {
+		int status = 0;
+		try {
+			Connection conexao = getConnection();
+			PreparedStatement pst = (PreparedStatement) conexao
+					.prepareStatement("DELETE FROM componentes WHERE id_componentes=?");
+			pst.setInt(1, idComponente.getIdComponente());
+			status = pst.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("ERRO NO BANCO " + e);
+		}
+		return status;
+	}
 	}

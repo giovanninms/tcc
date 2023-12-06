@@ -30,6 +30,17 @@
 	</header>
 
 	<h2>Cadastar Componente</h2>
+	<%
+	String erroInsercao = (String) session.getAttribute("erroInsercao");
+	%>
+	<%
+	if (erroInsercao != null) {
+	%>
+	<label class="erroValidacao"><%=erroInsercao%></label>
+	<%
+	session.removeAttribute("erroInsercao");
+	}
+	%>
 	<form action="GatilhoCadastrarComponente.jsp" method="post">
 
 		<table style="background-color: transparent">

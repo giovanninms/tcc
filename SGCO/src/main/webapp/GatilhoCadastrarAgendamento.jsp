@@ -7,8 +7,12 @@
 a.setStgFkPaciente(request.getParameter("stgFkPaciente"));
 a.setStgFkMedico(request.getParameter("stgFkMedico"));
 a.setStgFkHospital(request.getParameter("stgFkHospital"));
+int i = AgendamentosCirurgiasDao.insertAgendamento(a, request);
 
-
-int i = AgendamentosCirurgiasDao.insertAgendamento(a);
+if(i ==1){
 	response.sendRedirect("ConsultarAgendamento.jsp");
+}else{
+	response.sendRedirect("CadastrarAgendamento.jsp");
+}
+
 %>

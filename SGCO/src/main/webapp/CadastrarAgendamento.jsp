@@ -42,6 +42,7 @@
 		response.sendRedirect("Login.jsp");
 	}
 	%>
+	
 	<header>
 		<a href="Deslogar.jsp"><img src="./img/deletar.svg" alt="sair"
 			class="btn-home" title="Sair" /></a> <a href="Index.jsp"><img
@@ -53,10 +54,15 @@
 			alt="voltar" class="btn-2" /></a>
 	</header>
 	<h2>Cadastrar Agendamento</h2>
+	<% String erroInsercao = (String) session.getAttribute("erroInsercao"); %>
+    <% if (erroInsercao != null)  { 
+    %>
+       <label class="erroValidacao" ><%= erroInsercao %></label>
+    <%session.removeAttribute("erroInsercao"); } %>
 	<form action="GatilhoCadastrarAgendamento.jsp" method="post">
 
 		<table style="background-color: transparent">
-
+	
 			<tr>
 				<td>Paciente:</td>
 				<td colspan="3"><input type="text" name="stgFkPaciente"

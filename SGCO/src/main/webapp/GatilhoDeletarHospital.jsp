@@ -9,9 +9,8 @@ String id = request.getParameter("id");
 if (id != null) {
     int idHospital = Integer.parseInt(id);
     TbHospital hospital = HospitalDao.getRegistroById(idHospital);
-    int i = HospitalDao.DeletarHospital(hospital);
+    int i = HospitalDao.DeletarHospital(hospital, request);
     response.sendRedirect("ConsultarHospitais.jsp");
-    
 }
 %>
 

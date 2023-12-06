@@ -20,8 +20,23 @@
             elemento.textContent = elemento.textContent.toUpperCase();
         });
     }
-
     window.onload = converterParaMaiusculas;
+    
+    function mostrarPesquisa() {
+		const tipoPesquisa = document.getElementById("tipoPesquisa").value;
+		const labelDinamico = document.getElementById("labelDinamico");
+		labelDinamico.innerHTML = "";
+
+		if (tipoPesquisa === "Nome" || tipoPesquisa === "RG" || tipoPesquisa === "CPF" || tipoPesquisa === "CRM"){
+			const input = document.createElement("input");
+			input.type = "text";
+			input.name = "valorPesquisa";
+			input.id = "inputValue";
+			input.required = "required";
+			labelDinamico.appendChild(input);
+			
+		}
+	}
 </script>
 </head>
 
@@ -35,6 +50,26 @@
 	}
 	List<TbMedico> lista = MedicoDao.getAllMedico();
 	request.setAttribute("lista", lista);
+
+	String tipoPesquisa = request.getParameter("tipoPesquisa");
+	String valorPesquisa = request.getParameter("valorPesquisa");
+
+	if (tipoPesquisa != null && valorPesquisa != null) {
+		if (tipoPesquisa.equals("Nome")) {
+			lista = MedicoDao.getRegistroByNome(valorPesquisa);
+
+		} else if (tipoPesquisa.equals("RG")) {
+			lista = MedicoDao.getRegistroByRg(valorPesquisa);
+
+		} else if (tipoPesquisa.equals("CPF")) {
+			lista = MedicoDao.getRegistroByCpf(valorPesquisa);
+			
+		}else if (tipoPesquisa.equals("CRM")) {
+			lista = MedicoDao.getRegistroByCrm(valorPesquisa);
+			
+		}
+		request.setAttribute("lista", lista);
+	}
 	%>
 	<header>
 		<a href="Deslogar.jsp"><img src="./img/deletar.svg" alt="sair"
@@ -44,10 +79,33 @@
 			ORTOPÉDICAS</h1>
 	</header>
 	<main>
-		<a href="CadastrarMedico.jsp"><img src="./img/adicionar.svg"
+	<a href="CadastrarMedico.jsp"><img src="./img/adicionar.svg"
 			alt="cadastrar Medico" class="btn-2" /></a>
-
+	
+	<form action="" method="get">
+		<a>Pesquisar por:</a> <select name="tipoPesquisa" id="tipoPesquisa"
+			onchange="mostrarPesquisa()">
+			<option value="" selected disabled></option>
+			<option value="Nome">Nome</option>
+			<option value="RG">RG</option>
+			<option value="CPF">CNPJ</option>
+			<option value="CRM">CRM</option>
+		</select> <label id="labelDinamico"></label> <input type="submit"
+			value="Pesquisar">
+	</form>
+		
 		<h2>Consultar Medico</h2>
+		<%
+	String erroInsercao = (String) session.getAttribute("erroInsercao");
+	%>
+	<%
+	if (erroInsercao != null) {
+	%>
+	<label class="erroValidacao"><%=erroInsercao%></label>
+	<%
+	session.removeAttribute("erroInsercao");
+	}
+	%>
 		<table border="1"
 			style="border-collapse: collapse; border: 0px solid Silver;">
 			<thead>

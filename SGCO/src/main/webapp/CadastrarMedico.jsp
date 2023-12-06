@@ -41,6 +41,17 @@
 	</header>
 
 	<h2>Cadastar Medico</h2>
+	<%
+	String erroInsercao = (String) session.getAttribute("erroInsercao");
+	%>
+	<%
+	if (erroInsercao != null) {
+	%>
+	<label class="erroValidacao"><%=erroInsercao%></label>
+	<%
+	session.removeAttribute("erroInsercao");
+	}
+	%>
 	<form action="GatilhoCadastrarMedico.jsp" method="post">
 
 		<table style="background-color: transparent">

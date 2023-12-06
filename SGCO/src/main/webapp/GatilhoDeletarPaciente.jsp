@@ -9,7 +9,7 @@ String id = request.getParameter("id");
 if (id != null) {
     int idPaciente = Integer.parseInt(id);
     TbPaciente paciente = PacienteDao.getRegistroById(idPaciente);
-    int i = PacienteDao.deletarPaciente(paciente);
+    int i = PacienteDao.deletarPaciente(paciente, request);
     response.sendRedirect("ConsultarPaciente.jsp");
     
 }

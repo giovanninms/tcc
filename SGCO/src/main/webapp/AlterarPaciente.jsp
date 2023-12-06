@@ -45,6 +45,7 @@
 	</header>
 
 	<h2>Alterar Paciente</h2>
+	
 	<form action="GatilhoAlterarPaciente.jsp" method="post">
 
 		<table style="background-color: transparent">

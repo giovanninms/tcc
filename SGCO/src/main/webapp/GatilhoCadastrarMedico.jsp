@@ -3,6 +3,11 @@
 <jsp:setProperty property="*" name="m"/>
 
 <%
-	int i = MedicoDao.insertMedico(m);
-	response.sendRedirect("ConsultarMedico.jsp");
-%>
+	int i = MedicoDao.insertMedico(m, request);
+if(i==1){
+    response.sendRedirect("ConsultarMedico.jsp");
+
+}else{
+    response.sendRedirect("CadastrarMedico.jsp");
+
+}%>

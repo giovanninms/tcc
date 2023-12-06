@@ -9,7 +9,7 @@ String id = request.getParameter("id");
 if (id != null) {
     int idMedico = Integer.parseInt(id);
     TbMedico medico = MedicoDao.getRegistroById(idMedico);
-    int i = MedicoDao.deletarMedico(medico);
+    int i = MedicoDao.deletarMedico(medico, request);
     response.sendRedirect("ConsultarMedico.jsp");
     
 }

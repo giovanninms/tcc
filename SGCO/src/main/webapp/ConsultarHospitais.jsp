@@ -1,9 +1,3 @@
-<%-- 
-    Document   : ConsultaHospitais
-    Created on : 26 de out. de 2023, 12:09:17
-    Author     : adolf
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -27,34 +21,90 @@
             elemento.textContent = elemento.textContent.toUpperCase();
         });
     }
-    
     window.onload = converterParaMaiusculas;
+    
+    function mostrarPesquisa() {
+		const tipoPesquisa = document.getElementById("tipoPesquisa").value;
+		const labelDinamico = document.getElementById("labelDinamico");
+		labelDinamico.innerHTML = "";
+
+		if (tipoPesquisa === "Razao Social" || tipoPesquisa === "Nome Fantasia" || tipoPesquisa === "CNPJ"){
+			const input = document.createElement("input");
+			input.type = "text";
+			input.name = "valorPesquisa";
+			input.id = "inputValue";
+			input.required = "required";
+			labelDinamico.appendChild(input);
+			
+		}
+	}
 </script>
 </head>
 <body>
-	<header>
-		<a href="Deslogar.jsp"><img src="./img/deletar.svg" alt="sair"
-			class="btn-home" title="Sair" /></a> <a href="Index.jsp"><img
-			src="./img/home.svg" alt="home" class="btn-home" title="Tela Inicial" /></a>
-	</header>
-	<h1 class="itens-header">SGCO - SISTEMA DE GESTÃO DE CIRURGIAS
-		ORTOPÉDICAS</h1>
 	<%@ page import="dao.*, java.util.*, tabelas.*"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
-	<a href="CadastrarHospital.jsp"><img src="./img/adicionar.svg"
-		alt="adicionar" class="btn-2" title="Cadastrar Hospital" /></a>
+
 	<%
 	String usuario = (String) session.getAttribute("loginUsuario");
 	if (usuario == null) {
 		response.sendRedirect("Login.jsp");
 	}
+	
 	List<TbHospital> lista = HospitalDao.getAllHospital();
 	request.setAttribute("lista", lista);
+
+	String tipoPesquisa = request.getParameter("tipoPesquisa");
+	String valorPesquisa = request.getParameter("valorPesquisa");
+
+	if (tipoPesquisa != null && valorPesquisa != null) {
+		if (tipoPesquisa.equals("Razao Social")) {
+			lista = HospitalDao.getRegistroByRazaoSocial(valorPesquisa);
+
+		} else if (tipoPesquisa.equals("Nome Fantasia")) {
+			lista = HospitalDao.getRegistroByNomeFantasia(valorPesquisa);
+
+		} else if (tipoPesquisa.equals("CNPJ")) {
+			lista = HospitalDao.getRegistroByCnpj(valorPesquisa);
+		}
+		request.setAttribute("lista", lista);
+	}
 	%>
+	<header>
+		<a href="Deslogar.jsp"><img src="./img/deletar.svg" alt="sair"
+			class="btn-home" title="Sair" /></a> <a href="Index.jsp"><img
+			src="./img/home.svg" alt="home" class="btn-home" title="Tela Inicial" /></a>
+		<h1 class="itens-header">SGCO - SISTEMA DE GESTÃO DE CIRURGIAS
+			ORTOPÉDICAS</h1>
+	</header>
+
+	<a href="CadastrarHospital.jsp"><img src="./img/adicionar.svg"
+		alt="adicionar" class="btn-2" title="Cadastrar Hospital" /></a>
+		
+	<form action="" method="get">
+		<a>Pesquisar por:</a> <select name="tipoPesquisa" id="tipoPesquisa"
+			onchange="mostrarPesquisa()">
+			<option value="" selected disabled></option>
+			<option value="Razao Social">Razão Social</option>
+			<option value="Nome Fantasia">Nome Fantasia</option>
+			<option value="CNPJ">CNPJ</option>
+		</select> <label id="labelDinamico"></label> <input type="submit"
+			value="Pesquisar">
+	</form>
 
 	<h2>Consulta Hospitais</h2>
+	<%
+	String erroInsercao = (String) session.getAttribute("erroInsercao");
+	%>
+	<%
+	if (erroInsercao != null) {
+	%>
+	<label class="erroValidacao"><%=erroInsercao%></label>
+	<%
+	session.removeAttribute("erroInsercao");
+	}
+	%>
 	<table border="1"
 		style="border-collapse: collapse; border: 0px solid Silver;">
 		<tr style="background-color: #1F7A8C; color: white;">

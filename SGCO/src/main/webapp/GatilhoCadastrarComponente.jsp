@@ -5,6 +5,11 @@
 
 <%
 
-int i = ComponentesDao.insertComponente(c);
-	response.sendRedirect("CadastrarComponente.jsp");
-%>
+int i = ComponentesDao.insertComponente(c, request);
+if(i==1){
+		response.sendRedirect("ConsultarComponentes.jsp");
+
+	}else{
+		response.sendRedirect("CadastrarComponente.jsp");
+	}
+	%>

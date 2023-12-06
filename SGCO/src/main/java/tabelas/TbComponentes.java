@@ -51,9 +51,5 @@ public class TbComponentes {
 	public void setCirurgiaUtilizada(String cirurgiaUtilizada) {
 		this.cirurgiaUtilizada = cirurgiaUtilizada;
 	}
-
-	
-
-
 	
 }

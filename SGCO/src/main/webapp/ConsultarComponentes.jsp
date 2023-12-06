@@ -8,6 +8,12 @@
 <title>SGCO - Componentes</title>
 <link rel="stylesheet" href="styles.css" />
 <script>
+function confirmarDelete(getIdComponente) {
+    var confirmacao = confirm("Tem certeza de que deseja Deletar?");
+    if (confirmacao) {
+        window.location.href = "GatilhoDeletarComponente.jsp?id=" + getIdComponente;
+    }
+}
 	function mostrarPesquisa() {
 		const tipoPesquisa = document.getElementById("tipoPesquisa").value;
 		const labelDinamico = document.getElementById("labelDinamico");
@@ -26,11 +32,13 @@
 			input.type = "text";
 			input.name = "valorPesquisa";
 			input.id = "inputValue";
+			input.required = "required";
 			labelDinamico.appendChild(input);
 		} else if (tipoPesquisa === "CirurgiaUtilizada") {
 			const cirurgiaUtilizada = document.createElement("select");
 			cirurgiaUtilizada.id = "CirurgiaUtilizada";
 			cirurgiaUtilizada.name = "valorPesquisa";
+			cirurgiaUtilizada.required = "required";
 
 			var artroscopia = document.createElement("option");
 			artroscopia.value = "Artroscopia";
@@ -73,6 +81,7 @@
 			cirurgiaUtilizada.add(tendaoDeAquiles);
 			cirurgiaUtilizada.add(substituicao);
 			
+			
 
 			labelDinamico.appendChild(cirurgiaUtilizada);
 		}
@@ -92,6 +101,8 @@
 	<%@ page
 		import="dao.ComponentesDao, java.util.*, tabelas.TbComponentes"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	<jsp:useBean id="c" class="tabelas.TbComponentes"></jsp:useBean>
+	<jsp:setProperty property="*" name="c" />
 	<%
 	String usuario = (String) session.getAttribute("loginUsuario");
 	if (usuario == null) {
@@ -101,12 +112,17 @@
 	String tipoPesquisa = request.getParameter("tipoPesquisa");
 	String valorPesquisa = request.getParameter("valorPesquisa");
 
-	List<TbComponentes> lista = new ArrayList<>();
+
+	List<TbComponentes> lista = ComponentesDao.getAllComponentes();
+	request.setAttribute("lista", lista);
 
 	if (tipoPesquisa != null && valorPesquisa != null) {
 		if (tipoPesquisa.equals("Codigo")) {
 			int valorPesquisaInt = Integer.parseInt(valorPesquisa);
 			lista = ComponentesDao.getRegistroByCodigo(valorPesquisaInt);
+
+		} else if (tipoPesquisa.equals("Descricao")) {
+			lista = ComponentesDao.getRegistroByNome(valorPesquisa);
 
 		} else if (tipoPesquisa.equals("CirurgiaUtilizada")) {
 			lista = ComponentesDao.getRegistroByCirurgiaUtilizada(valorPesquisa);
@@ -132,9 +148,11 @@
 				onchange="mostrarPesquisa()">
 				<option value="" selected disabled></option>
 				<option value="Codigo">Codigo</option>
+				<option value="Descricao">Descrição</option>
 				<option value="CirurgiaUtilizada">Cirurgia Utilizada</option>
-			</select> <label id="labelDinamico"></label> <input type="submit"
-				value="Pesquisar">
+			</select> 
+			<label id="labelDinamico"></label> 
+			<input type="submit" value="Pesquisar">
 		</form>
 		<table border="1"
 			style="border-collapse: collapse; border: 0px solid Silver;">
@@ -166,8 +184,8 @@
 								title="Editar" />
 						</a></td>
 						<td style="background-color: #E1E5F2; border: 0;"><a
-							onclick="GatilhoDeletarComponente(${componente.getIdComponente()})">
-								<img src="./img/deletar.svg" alt="Deletar" class="btn-tabela"
+							onclick="confirmarDelete(${componente.getIdComponente()})"> <img
+								src="./img/deletar.svg" alt="Deletar" class="btn-tabela"
 								title="Deletar" />
 						</a></td>
 

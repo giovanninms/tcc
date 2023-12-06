@@ -21,9 +21,18 @@ header{
 
 body {
     background-color: #E1E5F2;
+   
+    
     
 }
-
+.botoeHome{
+	display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+    margin: 0;
+}
 
 button{
     width: 100px;
@@ -145,4 +154,12 @@ thead > tr > th{
 	position: sticky;
 	top: -1px;
 	background-color:#1F7A8C ;
+}
+.erroValidacao {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0;
+    color: red;
+    font-weight: 800;
 }

@@ -1,12 +1,6 @@
-<%-- 
-    Document   : CadatrarHospital
-    Created on : 26 de out. de 2023, 21:27:24
-    Author     : adolf
---%>
-
 <%@page import="dao.UsuarioDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="dao.HospitalDao, tabelas.TbHospital"%>
+<%@page import="dao.HospitalDao, tabelas.TbHospital, java.util.*"%>
 
 <!DOCTYPE html>
 <html>
@@ -40,13 +34,10 @@
 </script>
 <body>
 	<%
-	
 	String usuario = (String) session.getAttribute("loginUsuario");
 	if (usuario == null) {
 		response.sendRedirect("Login.jsp");
-		
-		String msg = (String) HospitalDao.CadastrarHospital(e);
-	
+
 	}
 	%>
 	<header>
@@ -61,7 +52,17 @@
 	<a href="ConsultarHospitais.jsp"><img src="./img/voltar.svg"
 		alt="voltar" class="btn-2" /></a>
 	<h2>Cadastrar Hospital</h2>
-
+	<%
+	String erroInsercao = (String) session.getAttribute("erroInsercao");
+	%>
+	<%
+	if (erroInsercao != null) {
+	%>
+	<label class="erroValidacao"><%=erroInsercao%></label>
+	<%
+	session.removeAttribute("erroInsercao");
+	}
+	%>
 	<form action="GatilhoCadastrarHospital.jsp" method="post">
 		<table style="background-color: transparent">
 			<tr>

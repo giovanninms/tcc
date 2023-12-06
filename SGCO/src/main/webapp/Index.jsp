@@ -31,15 +31,15 @@
 	if (usuario == null) {
 		response.sendRedirect("Login.jsp");
 	}
-	out.println("Bem Vindo "  +  (String) session.getAttribute("loginUsuario"));
-
+	
 	%>
 	<header>
+	<a href="Deslogar.jsp" ><img src="./img/deletar.svg" alt="sair" class="btn-home" title="Sair"/></a>
 			<h1 class="itens-header">SGCO - SISTEMA DE GESTÃO DE CIRURGIAS
 			ORTOPÉDICAS</h1>
-			<a href="Deslogar.jsp" ><img src="./img/deletar.svg" alt="sair" class="btn-home" title="Sair"/></a>
+			
 	</header>
-	<main>
+	<main class="botoeHome">
 		<a href="ConsultarHospitais.jsp"><button class="btn-principal"><img src="./img/hospital.svg" alt="hospital" title="Consultar Hospital" />Hospitais</button></a> 
 		<a href="ConsultarComponentes.jsp"><button class="btn-principal"><img src="./img/componente.svg" alt="componente" title="Consultar Componente">Componentes</button></a>
 		<a href="ConsultarAgendamento.jsp"><button class="btn-principal"><img alt="agendamento" src="./img/agendamento.svg">Agendamentos</button></a>

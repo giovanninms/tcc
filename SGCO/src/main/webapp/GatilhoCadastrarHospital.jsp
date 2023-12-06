@@ -1,16 +1,15 @@
-<%-- 
-    Document   : InserirHospital
-    Created on : 26 de out. de 2023, 21:30:53
-    Author     : adolf
---%>
-
 <%@page import="dao.*"%>
 <jsp:useBean id="h" class="tabelas.TbHospital"></jsp:useBean>
 <jsp:setProperty property="*" name ="h"/>
 <%
    
-    int i = HospitalDao.CadastrarHospital(h);    
-    response.sendRedirect("ConsultarHospitais.jsp");
+    int i = HospitalDao.CadastrarHospital(h, request); 
+if(i==1){
+	response.sendRedirect("ConsultarHospitais.jsp");
+}else{
+	response.sendRedirect("CadastrarHospital.jsp");
+}
+    
     
     
 
