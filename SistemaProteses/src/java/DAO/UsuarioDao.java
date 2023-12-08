@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DAO;
-import static DAO.ConexaoDAO.getConnection;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.util.List;
@@ -44,7 +43,7 @@ public class UsuarioDao {
                 objusuarios.setLoginUsuario(rs.getString("login_usuario"));
                 objusuarios.setNomeUsuario(rs.getString("nome_usuario"));
                 objusuarios.setEmailUsuario(rs.getString("email_usuario"));
-                objusuarios.setTelefoneUsuario(rs.getInt("telefone_usuario"));
+                objusuarios.setTelefoneUsuario(rs.getString("telefone_usuario"));
                 
             }
         
@@ -70,7 +69,7 @@ public class UsuarioDao {
             objusuarios.setLoginUsuario(rs.getString("login_usuario"));
             objusuarios.setNomeUsuario(rs.getString("nome_usuario"));
             objusuarios.setEmailUsuario(rs.getString("email_usuario"));
-            objusuarios.setTelefoneUsuario(rs.getInt("telefone_usuario"));
+            objusuarios.setTelefoneUsuario(rs.getString("telefone_usuario"));
             
             lista.add(objusuarios);
         }
@@ -92,7 +91,7 @@ public class UsuarioDao {
             ps.setString(4, h.getNivelUsuario());
             ps.setString(5, h.getNomeUsuario());
             ps.setString(6, h.getEmailUsuario());
-            ps.setInt(7, h.getTelefoneUsuario());
+            ps.setString(7, h.getTelefoneUsuario());
             
             status = ps.executeUpdate();
         } catch (Exception e){
@@ -112,7 +111,7 @@ public class UsuarioDao {
             ps.setString(1, h.getLoginUsuario());
             ps.setString(2, h.getNomeUsuario());
             ps.setString(3, h.getEmailUsuario());
-            ps.setInt(4, h.getTelefoneUsuario());
+            ps.setString(4, h.getTelefoneUsuario());
             ps.setInt(5, h.getIdUsuario());
             
             status = ps.executeUpdate();
@@ -125,37 +124,36 @@ public class UsuarioDao {
         
         int status = 0;
         
+        
         try {
             boolean usuarioValidado = false;
-            boolean senhaValidado = false;
+            
+         
             Connection con = getConnection();
             
-            PreparedStatement ps1 = (PreparedStatement) con.prepareStatement("SELECT * from usuarios WHERE login_usuario=?");         
-            ps1.setString(1, h.getLoginUsuario()); 
+            PreparedStatement ps1 = (PreparedStatement) con.prepareStatement("SELECT * from usuarios WHERE login_usuario=? AND tipo_usuario = ? OR tipo_usuario = ?");         
+            ps1.setString(1, h.getLoginUsuario());
+            ps1.setString(2,"Hospital");
+            ps1.setString(3,"Distribuidora");
             ResultSet rs1 = ps1.executeQuery();
             
-            PreparedStatement ps2 = (PreparedStatement) con.prepareStatement("SELECT * from usuarios WHERE senha_usuario=?");
-            ps2.setString(1, h.getSenhaUsuario());
-            ResultSet rs2 = ps2.executeQuery();
-            
+                       
             while (rs1.next()){
                 
                 if (rs1.getString("login_usuario").equals(h.getLoginUsuario())){
                     usuarioValidado = true;
+                    
+                    if (rs1.getString("tipo_usuario").equals("Hospital")){
+                        status = 1;
+                    }
+                    
+                    else if (rs1.getString("tipo_usuario").equals("Distribuidora")){
+                        status = 2;
+                    }
                 }
             }
-                
-            while (rs2.next()){
-                
-                if (rs2.getString("senha_usuario").equals(h.getSenhaUsuario())){
-                    senhaValidado = true;
-                }
-            }
-            if (usuarioValidado == true && senhaValidado == true){
-                 status = 1;
-                 
-            }   
         
+            
         } catch (Exception e){
             System.out.println("Erro ao logar. Erro: "+e);
         }

@@ -17,7 +17,7 @@ public class TbUsuarios {
     private String nivelUsuario;
     private String nomeUsuario;
     private String emailUsuario;
-    private int telefoneUsuario;
+    private String telefoneUsuario;
 
     public int getIdUsuario() {
         return idUsuario;
@@ -47,7 +47,7 @@ public class TbUsuarios {
         return emailUsuario;
     }
 
-    public int getTelefoneUsuario() {
+    public String getTelefoneUsuario() {
         return telefoneUsuario;
     }
 
@@ -79,7 +79,7 @@ public class TbUsuarios {
         this.emailUsuario = emailUsuario;
     }
 
-    public void setTelefoneUsuario(int telefoneUsuario) {
+    public void setTelefoneUsuario(String telefoneUsuario) {
         this.telefoneUsuario = telefoneUsuario;
     }
 
