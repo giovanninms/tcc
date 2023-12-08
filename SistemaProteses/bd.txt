@@ -25,3 +25,16 @@ telefone int not null,
 email varchar(50) not null
 );
 
+CREATE TABLE usuarios (
+id_usuario int primary key auto_increment,
+login_usuario varchar (50) unique not null,
+senha_usuario varchar (50) not null,
+tipo_usuario enum ('Hospital','Distribuidora') not null,
+nivel_usuario enum ('Administrador','Usuario') not null,
+nome_usuario varchar (100) not null,
+email_usuario varchar (100) not null,
+telefone_usuario varchar(50) unique not null
+);
+
+INSERT INTO usuarios (login_usuario, senha_usuario, tipo_usuario, nivel_usuario, nome_usuario, email_usuario, telefone_usuario) 
+VALUES ('adolfo','1234','Hospital','Administrador','Adolfo Oldemburgo','adolfo@adolfo.com','43991484600');
