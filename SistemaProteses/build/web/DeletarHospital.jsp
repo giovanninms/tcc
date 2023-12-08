@@ -15,16 +15,18 @@
         <link rel="stylesheet" href="styles.css"/>
     </head>
     <script>
-        function AlertaDeletar()
-        {
-            confirm("Deseja realmente deletar o hospital?");
-            alert("Hospital deletado com sucesso");
-            
-        }
+       
     </script>
     <body>
+        <%
+            String usuario = (String) session.getAttribute("loginUsuario");
+            if (usuario == null){
+                response.sendRedirect("index.jsp");
+            }
+            
+        %>
         <header>
-            <a href="index.jsp" ><img src="./img/home.svg" alt="home" class="btn-home" title="Tela Inicial"/></a>
+            <a href="TelaInicial.jsp" ><img src="./img/home.svg" alt="home" class="btn-home" title="Tela Inicial"/></a>
         </header>     
         <h1 class="itens-header">SGPO - SISTEMA DE GESTÃO DE PRÓTESES ORTOPÉDICAS</h1>  
         
@@ -38,7 +40,7 @@
         <a href="ConsultaHospitais.jsp"><img src="./img/voltar.svg" alt="voltar" class="btn-2"/></a>
         <h2>Deletar Hospital</h2>
              
-        <form action="ConfirmaDeletarHospital.jsp" method="post">   
+        <form action="GatilhoDeletarHospital.jsp" method="post">   
             <table style="background-color: transparent">                
                 <tr><td>Código Hospital: <input class="text_input" type="text" name="idHospital" value="<%=objhospital.getIdHospital()%>" readonly="readonly"/></td></tr>                
                 <tr><td>Razão Social: <input class="text_input" type="text" name="razaoSocial" value="<%=objhospital.getRazaoSocial()%>"/></td></tr>                 

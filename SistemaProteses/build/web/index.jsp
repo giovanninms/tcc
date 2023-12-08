@@ -1,32 +1,66 @@
 <%-- 
-    Document   : index
-    Created on : 24 de out. de 2023, 21:17:37
+    Document   : login
+    Created on : 23 de nov. de 2023, 20:03:45
     Author     : adolf
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="./img/junta.png" type="image/png">
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>SGPO - Inínio</title>
-        <link rel="stylesheet" href="styles.css"/>
-    </head>
-     
+        <title>SGPO - Sistema de Gestão de Próteses Ortopédicas</title>
+        <link rel="stylesheet" href="styles2.css">
+
     <body>
-        <%@ page import="DAO.ConexaoDAO, java.util.*, Tabelas.TbHospital"%>
-        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-        <header>
-            <a href="index.jsp" ><img src="./img/home.svg" alt="home" class="btn-home" title="Tela Inicial"/></a>
-        </header>  
+        <%
+
+            String usuario = (String) session.getAttribute("loginUsuario");
+            if (usuario != null) {
+                String status = (String) session.getAttribute("status");
+                if (status == "1") {
+                    response.sendRedirect("TelaInicialHospital.jsp");
+                } else if (status == "2") {
+                    response.sendRedirect("TelaInicialDistribuidora.jsp");
+                }
+            }
+
+
+        %>
         <main>
-            <h1 class="itens-header">SGPO - SISTEMA DE GESTÃO DE PRÓTESES ORTOPÉDICAS</h1> 
-            <a href="ConsultaHospitais.jsp"><button class="btn-principal"><img src="./img/hospital.svg" alt="hospital" title="Consultar Hospital"/>Consulta Hospitais</button></a>
-            <a href="ConsultaHospitais.jsp"><button class="btn-principal"><img src="./img/medico.svg" alt="medico" title="Consultar Médicos"/>Consulta Médicos</button></a>
-            <a href="ConsultaHospitais.jsp"><button class="btn-principal"><img src="./img/paciente.svg" alt="paciente" title="Consultar Pacientes"/>Consulta Pacientes</button></a>
-            <a href="AgendamentosCirurgias.jsp"><button class="btn-principal"><img src="./img/cirurgia.svg" alt="cirurgia" title="Agendamentos Cirurgias"/>Agendamento Cirurgias</button></a>
+            <section class="coluna_login">
+                <div class="login">
+                    <h2>Faça seu acesso</h2>
+
+                    <form action="GatilhoLogin.jsp" method="post">                
+                        <input type="text" name="loginUsuario" class="input" placeholder="Login" required>               
+                        <input type="password" name="senhaUsuario" class="input" placeholder="Senha" required>
+                        <div class="botoes">
+                            <input type="submit" class="icones_botoes" value="Entrar"></input>
+                        </div>
+                </div>
+                </form>
+
+
+
+            </section>
+
+
+            <section class="coluna_wallpaper">
+
+            </section>
+
         </main>
-        
+        <div class="texto_wallpaper">
+            <h1>SGPO - Sistema de Gestão de Próteses Ortopédicas</h1>
+            <h2>A&G Soluções Tecnológicas</h2>
+        </div>
+
+
+
+
     </body>
 </html>
