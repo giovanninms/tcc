@@ -105,6 +105,8 @@ public class MedicoDao {
 	}
 	public static int insertMedico(TbMedico m, HttpServletRequest request) {
 		int status = 0;
+		HttpSession session = request.getSession();
+
 		String sqlString = ("insert into medico (nome, data_nascimento, RG, CPF, ur_crm, numero_crm, celular, email, sexo) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		try {
 			Connection conexao = getConnection();
@@ -120,8 +122,10 @@ public class MedicoDao {
 			pst.setString(9, m.getSexo());
 			status = pst.executeUpdate();
 			
+			session = request.getSession();
+	        session.setAttribute("msgBanco", "MÉDICO CADASTRADO COM SUCESSO!!");
+			
 		} catch (SQLException e) {
-			HttpSession session = request.getSession();
 
 			if (e.getErrorCode() == 1062) {
 

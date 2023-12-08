@@ -50,7 +50,7 @@
 	}
 	List<TbPaciente> lista = PacienteDao.getAllPacientes();
 	request.setAttribute("lista", lista);
-	
+
 	String tipoPesquisa = request.getParameter("tipoPesquisa");
 	String valorPesquisa = request.getParameter("valorPesquisa");
 
@@ -63,7 +63,7 @@
 
 		} else if (tipoPesquisa.equals("CPF")) {
 			lista = PacienteDao.getRegistroByCpf(valorPesquisa);
-			
+
 		}
 		request.setAttribute("lista", lista);
 	}
@@ -78,30 +78,30 @@
 	<main>
 		<a href="CadastrarPaciente.jsp"><img src="./img/adicionar.svg"
 			alt="cadastrar paciente" class="btn-2" /></a>
-			<form action="" method="get">
-			
-		<a>Pesquisar por:</a> <select name="tipoPesquisa" id="tipoPesquisa"
-			onchange="mostrarPesquisa()">
-			<option value="" selected disabled></option>
-			<option value="Nome">Nome</option>
-			<option value="RG">RG</option>
-			<option value="CPF">CPF</option>
-		</select> <label id="labelDinamico"></label> <input type="submit"
-			value="Pesquisar">
-	</form>
+		<form action="" method="get">
+
+			<a>Pesquisar por:</a> <select name="tipoPesquisa" id="tipoPesquisa"
+				onchange="mostrarPesquisa()">
+				<option value="" selected disabled></option>
+				<option value="Nome">Nome</option>
+				<option value="RG">RG</option>
+				<option value="CPF">CPF</option>
+			</select> <label id="labelDinamico"></label> <input type="submit"
+				value="Pesquisar">
+		</form>
 
 		<h2>Consultar Pacientes</h2>
 		<%
-	String erroInsercao = (String) session.getAttribute("erroInsercao");
-	%>
-	<%
-	if (erroInsercao != null) {
-	%>
-	<label class="erroValidacao"><%=erroInsercao%></label>
-	<%
-	session.removeAttribute("erroInsercao");
-	}
-	%>
+		String msgBanco = (String) session.getAttribute("msgBanco");
+		%>
+		<%
+		if (msgBanco != null) {
+		%>
+		<label class="msgBanco"><%=msgBanco%></label>
+		<%
+		session.removeAttribute("msgBanco");
+		}
+		%>
 		<table border="1"
 			style="border-collapse: collapse; border: 0px solid Silver;">
 			<thead>

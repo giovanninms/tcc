@@ -7,7 +7,16 @@ public class TbComponentes {
 	private  int codigoComponente;
 	private  int quantidadeComponentes;
 	private  String cirurgiaUtilizada;
+	private String localCorpo;
 	
+	public String getLocalCorpo() {
+		return localCorpo;
+	}
+
+	public void setLocalCorpo(String localCorpo) {
+		this.localCorpo = localCorpo;
+	}
+
 	public TbComponentes() {
 		
 	}

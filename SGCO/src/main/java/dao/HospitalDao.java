@@ -75,6 +75,7 @@ public class HospitalDao {
 
 	public static int CadastrarHospital(TbHospital h, HttpServletRequest request) {
 		int status = 0;
+		HttpSession session = request.getSession();
 
 		try {
 
@@ -90,10 +91,11 @@ public class HospitalDao {
 			ps.setString(7, h.getEstado());
 			ps.setString(8, h.getTelefone());
 			ps.setString(9, h.getEmail());
-
+			
 			status = ps.executeUpdate();
+			session = request.getSession();
+	        session.setAttribute("msgBanco", "HOSPITAL CADASTRADO COM SUCESSO!!");
 		} catch (SQLException e) {
-			HttpSession session = request.getSession();
 
 			if (e.getErrorCode() == 1062) {
 

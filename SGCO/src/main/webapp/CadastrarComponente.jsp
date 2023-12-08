@@ -7,7 +7,29 @@
 <title>SGCO - Cadastrar Componente</title>
 <link href="styles.css" rel="stylesheet">
 <script>
-	
+const tipoCirurgiaPorLocaldoCorpo ={
+		joelho:["Artroscopia","Substituição de Articulação","lca","lcl","lcp","Menisco"],
+		quadril:["Artroscopia","Substituição de Articulação"],
+		ombro:["Artroscopia", "Substituição de Articulação", "manguito rotador"],
+		tornozelo:["Artroscopia", "Substituição de Articulação", "tendão de aquiles"]
+};
+
+function mostrarTipoCirurgia() {
+    const localCorpoSelect = document.getElementById("localCorpo").value;
+    const tipoCirurgiaSelect = document.getElementById("cirurgiaUtilizada");
+    tipoCirurgiaSelect.innerHTML = ""; 
+
+    const tipoCirurgias = tipoCirurgiaPorLocaldoCorpo[localCorpoSelect];
+    if (tipoCirurgias) {
+        tipoCirurgias.forEach(tipoCirurgia => {
+            const option = document.createElement("option");
+            option.value = tipoCirurgia;
+            option.text = tipoCirurgia;
+            option.name = tipoCirurgia;	
+            tipoCirurgiaSelect.appendChild(option);
+        });
+    }
+}
 </script>
 </head>
 <body>
@@ -56,20 +78,19 @@
 				<td><input type="text" name="quantidadeComponentes"></td>
 			</tr>
 			<tr>
-				<td>Cirurgia Utilizada:</td>
-				<td><select name="cirurgiaUtilizada" required="required">
+				<td>Local Corpo:</td>
+				<td><select class="selctNovoAgendamento" id="localCorpo"
+					onchange="mostrarTipoCirurgia()" name="localCorpo"
+					required="required">
 						<option value="" selected disabled></option>
-						<option value="Artroscopia">Artroscopia</option>
-						<option value="Substituição de Articulação">Substituição
-							de Articulação</option>
-						<option value="manguito rotador">manguito rotador</option>
-						<option value="tendão de aquiles">tendão de aquiles</option>
-						<option value="lca">LCA</option>
-						<option value="lcl">LCL</option>
-						<option value="lcp">LCP</option>
-						<option value="menisco">Menisco</option>
-
+						<option value="joelho">Joelho</option>
+						<option value="quadril">Quadril</option>
+						<option value="ombro">Ombro</option>
+						<option value="tornozelo">Tornozelo</option>
 				</select></td>
+				
+				<td>Tipo Cirurgia:</td>
+				<td><select id="cirurgiaUtilizada" name="cirurgiaUtilizada"></select></td>
 			</tr>
 			<tr>
 				<td><input class="btn-enviar" type="submit" value="Cadastrar"></td>

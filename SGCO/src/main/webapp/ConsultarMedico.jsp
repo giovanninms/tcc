@@ -88,7 +88,7 @@
 			<option value="" selected disabled></option>
 			<option value="Nome">Nome</option>
 			<option value="RG">RG</option>
-			<option value="CPF">CNPJ</option>
+			<option value="CPF">CPF</option>
 			<option value="CRM">CRM</option>
 		</select> <label id="labelDinamico"></label> <input type="submit"
 			value="Pesquisar">
@@ -96,16 +96,16 @@
 		
 		<h2>Consultar Medico</h2>
 		<%
-	String erroInsercao = (String) session.getAttribute("erroInsercao");
-	%>
-	<%
-	if (erroInsercao != null) {
-	%>
-	<label class="erroValidacao"><%=erroInsercao%></label>
-	<%
-	session.removeAttribute("erroInsercao");
-	}
-	%>
+		String msgBanco = (String) session.getAttribute("msgBanco");
+		%>
+		<%
+		if (msgBanco != null) {
+		%>
+		<label class="msgBanco"><%=msgBanco%></label>
+		<%
+		session.removeAttribute("msgBanco");
+		}
+		%>
 		<table border="1"
 			style="border-collapse: collapse; border: 0px solid Silver;">
 			<thead>

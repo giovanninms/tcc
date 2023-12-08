@@ -13,8 +13,30 @@
 			elemento.textContent = elemento.textContent.toUpperCase();
 		});
 	}
-
 	window.onload = converterParaMaiusculas;
+	const tipoCirurgiaPorLocaldoCorpo ={
+			joelho:["Artroscopia","Substituição de Articulação","lca","lcl","lcp","Menisco"],
+			quadril:["Artroscopia","Substituição de Articulação"],
+			ombro:["Artroscopia", "Substituição de Articulação", "manguito rotador"],
+			tornozelo:["Artroscopia", "Substituição de Articulação", "tendão de aquiles"]
+	};
+
+	function mostrarTipoCirurgia() {
+	    const localCorpoSelect = document.getElementById("localCorpo").value;
+	    const tipoCirurgiaSelect = document.getElementById("cirurgiaUtilizada");
+	    tipoCirurgiaSelect.innerHTML = ""; 
+
+	    const tipoCirurgias = tipoCirurgiaPorLocaldoCorpo[localCorpoSelect];
+	    if (tipoCirurgias) {
+	        tipoCirurgias.forEach(tipoCirurgia => {
+	            const option = document.createElement("option");
+	            option.value = tipoCirurgia;
+	            option.text = tipoCirurgia;
+	            option.name = tipoCirurgia;	
+	            tipoCirurgiaSelect.appendChild(option);
+	        });
+	    }
+	}
 </script>
 </head>
 <body>
@@ -57,19 +79,19 @@
 					required /></td>
 			</tr>
 			<tr>
-				<td>Cirurgia utilizada: <select name="cirurgiaUtilizada"
-					required="required">
+				<td>Local Corpo:
+				<select id="localCorpo" onchange="mostrarTipoCirurgia()" name="localCorpo"
+					required="required" >
 						<option value="" selected disabled></option>
-						<option value="Artroscopia">Artroscopia</option>
-						<option value="Substituição de Articulação">Substituição
-							de Articulação</option>
-						<option value="manguito rotador ">Manguito Rotador</option>
-						<option value="tendão de aquiles">Tendão de Aquiles</option>
-						<option value="lca">LCA</option>
-						<option value="lcl">LCL</option>
-						<option value="lcp">LCP</option>
-						<option value="menisco">Menisco</option>
+						<option value="joelho">Joelho</option>
+						<option value="quadril">Quadril</option>
+						<option value="ombro">Ombro</option>
+						<option value="tornozelo">Tornozelo</option>
 				</select></td>
+				</tr>
+				
+				<tr>
+				<td>Tipo Cirurgia:<select id="cirurgiaUtilizada" name="cirurgiaUtilizada"></select></td>
 			</tr>
 			<tr>
 				<td>Quantidade Disponivel: <input class="text_input"

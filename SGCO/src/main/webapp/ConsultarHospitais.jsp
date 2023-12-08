@@ -94,17 +94,11 @@
 	</form>
 
 	<h2>Consulta Hospitais</h2>
-	<%
-	String erroInsercao = (String) session.getAttribute("erroInsercao");
-	%>
-	<%
-	if (erroInsercao != null) {
-	%>
-	<label class="erroValidacao"><%=erroInsercao%></label>
-	<%
-	session.removeAttribute("erroInsercao");
-	}
-	%>
+	<% String msgBanco = (String) session.getAttribute("msgBanco"); %>
+    <% if (msgBanco != null)  { 
+    %>
+       <label class="msgBanco" ><%= msgBanco %></label>
+           <%session.removeAttribute("msgBanco"); } %>
 	<table border="1"
 		style="border-collapse: collapse; border: 0px solid Silver;">
 		<tr style="background-color: #1F7A8C; color: white;">

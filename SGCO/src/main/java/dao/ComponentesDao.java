@@ -1,5 +1,4 @@
 package dao;
-
 import tabelas.TbComponentes;
 import java.util.*;
 
@@ -41,6 +40,8 @@ public class ComponentesDao {
 				componentes.setCodigoComponente(rs.getInt("codigo_componente"));
 				componentes.setQuantidadeComponentes(rs.getInt("quantidade"));
 				componentes.setCirurgiaUtilizada(rs.getString("cirurgia_utilizada"));
+				componentes.setLocalCorpo(rs.getString("local_corpo"));
+
 				lista.add(componentes);
 				
 			}
@@ -70,6 +71,7 @@ public class ComponentesDao {
 				componentes.setCodigoComponente(rs.getInt("codigo_componente"));
 				componentes.setQuantidadeComponentes(rs.getInt("quantidade"));
 				componentes.setCirurgiaUtilizada(rs.getString("cirurgia_utilizada"));
+				componentes.setLocalCorpo(rs.getString("local_corpo"));
 				lista.add(componentes);
 			}
 
@@ -96,6 +98,7 @@ public class ComponentesDao {
 				componentes.setCodigoComponente(rs.getInt("codigo_componente"));
 				componentes.setQuantidadeComponentes(rs.getInt("quantidade"));
 				componentes.setCirurgiaUtilizada(rs.getString("cirurgia_utilizada"));
+				componentes.setLocalCorpo(rs.getString("local_corpo"));
 				lista.add(componentes);
 			}
 
@@ -121,6 +124,7 @@ public class ComponentesDao {
 				componentes.setCodigoComponente(rs.getInt("codigo_componente"));
 				componentes.setQuantidadeComponentes(rs.getInt("quantidade"));
 				componentes.setCirurgiaUtilizada(rs.getString("cirurgia_utilizada"));
+				componentes.setLocalCorpo(rs.getString("local_corpo"));
 				lista.add(componentes);
 			}
 
@@ -149,6 +153,7 @@ public class ComponentesDao {
 				componentes.setCodigoComponente(rs.getInt("codigo_componente"));
 				componentes.setQuantidadeComponentes(rs.getInt("quantidade"));
 				componentes.setCirurgiaUtilizada(rs.getString("cirurgia_utilizada"));
+				componentes.setLocalCorpo(rs.getString("local_corpo"));
 
 			}
 
@@ -157,18 +162,45 @@ public class ComponentesDao {
 		}
 		return componentes;
 	}
-	
+	public static List<TbComponentes> getByAgendamento(int fkAgendamento) {
+	    List<TbComponentes> lista = new ArrayList<>();
+	    final String selectString = "SELECT c.nome_componente, c.codigo_componente, c.cirurgia_utilizada, ca.quantidade "
+	            + "FROM componentefkagendamento ca "
+	            + "JOIN componentes c ON ca.fk_componente = c.id_componentes "
+	            + "WHERE ca.fk_agendamento = ?";
+	    try {
+	        Connection conexao = getConnection();
+	        PreparedStatement pst = (PreparedStatement) conexao.prepareStatement(selectString);
+	        pst.setInt(1, fkAgendamento);
+	        ResultSet rs = pst.executeQuery();
+
+	        while (rs.next()) {
+	            TbComponentes componenteAgendamento = new TbComponentes();
+	            componenteAgendamento.setNomeComponente(rs.getString("nome_componente"));
+	            componenteAgendamento.setCodigoComponente(rs.getInt("codigo_componente"));
+	            componenteAgendamento.setCirurgiaUtilizada(rs.getString("cirurgia_utilizada"));
+	            componenteAgendamento.setQuantidadeComponentes(rs.getInt("quantidade"));
+
+	            lista.add(componenteAgendamento);
+	        }
+	    } catch (Exception e) {
+	        System.out.println(e);
+	    }
+	    return lista;
+	}
+
 	public static int updateComponente(TbComponentes c) {
 		int status = 0;
 
 		try {
 			Connection conexao = getConnection();
-			PreparedStatement pst = (PreparedStatement) conexao.prepareStatement("UPDATE componentes SET nome_componente=?, codigo_componente=?, quantidade=?, cirurgia_utilizada=? WHERE id_componentes=?");
+			PreparedStatement pst = (PreparedStatement) conexao.prepareStatement("UPDATE componentes SET nome_componente=?, codigo_componente=?, quantidade=?, cirurgia_utilizada=?, local_corpo=? WHERE id_componentes=?");
 			pst.setString(1, c.getNomeComponente());
 			pst.setInt(2, c.getCodigoComponente());
 			pst.setInt(3, c.getQuantidadeComponentes());
 			pst.setString(4, c.getCirurgiaUtilizada());
-			pst.setInt(5, c.getIdComponente());
+			pst.setString(5, c.getLocalCorpo());
+			pst.setInt(6, c.getIdComponente());
 			status = pst.executeUpdate();
 
 		} catch (Exception e) {
@@ -179,18 +211,22 @@ public class ComponentesDao {
 	
 	public static int insertComponente(TbComponentes c, HttpServletRequest request) {
 	    int status = 0;
-	    
+	    HttpSession session = request.getSession();
 	        try {
 	            Connection conexao = getConnection();
 	            PreparedStatement pst = (PreparedStatement) conexao.prepareStatement(
-	                    "INSERT INTO componentes (nome_componente, codigo_componente, quantidade, cirurgia_utilizada) VALUES (?, ?, ?, ?)");
+	                    "INSERT INTO componentes (nome_componente, codigo_componente, quantidade, cirurgia_utilizada, local_corpo) VALUES (?, ?, ?, ?, ?)");
 	            pst.setString(1, c.getNomeComponente());
 	            pst.setInt(2, c.getCodigoComponente());
 	            pst.setInt(3, c.getQuantidadeComponentes());
 	            pst.setString(4, c.getCirurgiaUtilizada());
+	            pst.setString(5, c.getLocalCorpo());
 	            status = pst.executeUpdate();
+	            
+	            session = request.getSession();
+		        session.setAttribute("msgBanco", "COMPONENTE CADASTRADO COM SUCESSO!!");
 	        } catch (SQLException e) {
-	        	HttpSession session = request.getSession();
+	        	
 
 				if (e.getErrorCode() == 1062) {
 
@@ -216,3 +252,5 @@ public class ComponentesDao {
 		return status;
 	}
 	}
+
+

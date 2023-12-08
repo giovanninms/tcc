@@ -92,35 +92,41 @@ public class AgendamentosCirurgiasDao {
 	public static int insertAgendamento(TbAgendamentosCirurgias a, HttpServletRequest request) {
 		int status = 0;
 		HttpSession session = null;
-		
-		if (!getPaciente(a.getStgFkPaciente()) || !getHospital(a.getStgFkHospital()) || !getMedico(a.getStgFkMedico())) {
+
+		if (!getPaciente(a.getStgFkPaciente()) || !getHospital(a.getStgFkHospital())
+				|| !getMedico(a.getStgFkMedico())) {
 			session = request.getSession();
 			session.setAttribute("erroInsercao", "PACIENTE, MEDICO OU PACIENTE NÃO ENCONTRADO! CADASTRO CANCELADO.");
 			System.out.println("Mensagem de erro: " + session.getAttribute("erroInsercao"));
 			return status;
-			
 		} else {
-			session = null;
-
 			try {
 				Connection conexao = getConnection();
 				PreparedStatement pst = conexao.prepareStatement(
 						"INSERT INTO agendamentos_cirurgias (local_corpo, tipo_cirurgia, status, data_hora, fk_paciente, fk_hospital, fk_medico) VALUES (?, ?, ?, ?, (SELECT id_paciente FROM pacientes WHERE nome = ?), (SELECT id_hospital FROM hospital WHERE nome_fantasia = ?), (SELECT id_medico FROM medico WHERE nome = ?))");
+
 				pst.setString(1, a.getLocalCorpo());
 				pst.setString(2, a.getTipoCirurgia());
 				pst.setString(3, a.getStatusAgendamento());
 				pst.setString(4, a.getDataHoraString());
 				pst.setString(5, a.getStgFkPaciente());
-				System.out.println(a.getStgFkPaciente());
 				pst.setString(6, a.getStgFkHospital());
-				System.out.println(a.getStgFkHospital());
 				pst.setString(7, a.getStgFkMedico());
-				System.out.println(a.getStgFkMedico());
+
 				status = pst.executeUpdate();
+				
+				session = request.getSession();
+				session.setAttribute("msgBanco", "AGENDADO COM SUCESSO!");
+				
+				System.out.println(session.getAttribute("msgBanco"));
 			} catch (SQLException e) {
+				if(e.getErrorCode() == 1644) {
+					session = request.getSession();
+					session.setAttribute("erroInsercao", "COMPONENTES EM FALTA! CONTATE A DISTRIBUIDORA.");
+				}
+				System.out.println(e);
 				System.out.println("ERRO CADASTRAR AGENDAMENTO" + e.getErrorCode());
 				System.out.println("ERRO CADASTRAR AGENDAMENTO" + e.getMessage());
-
 			}
 			return status;
 		}
@@ -162,9 +168,11 @@ public class AgendamentosCirurgiasDao {
 			Connection conexao = getConnection();
 			PreparedStatement pst = conexao.prepareStatement(
 					"SELECT ac.*, p.nome AS nome_paciente, h.nome_fantasia AS nome_hospital, m.nome AS nome_medico "
-							+ "FROM agendamentos_cirurgias ac " + "JOIN pacientes p ON ac.fk_paciente = p.id_paciente "
+							+ "FROM agendamentos_cirurgias ac " 
+							+ "JOIN pacientes p ON ac.fk_paciente = p.id_paciente "
 							+ "JOIN hospital h ON ac.fk_hospital = h.id_hospital "
-							+ "JOIN medico m ON ac.fk_medico = m.id_medico " + "WHERE ac.idagendamentos_cirurgias = ?");
+							+ "JOIN medico m ON ac.fk_medico = m.id_medico " 
+							+ "WHERE ac.idagendamentos_cirurgias = ?");
 			pst.setInt(1, idAgendamento);
 			ResultSet rs = pst.executeQuery();
 
@@ -185,7 +193,7 @@ public class AgendamentosCirurgiasDao {
 			System.out.println(e);
 		}
 		return agendamentosCirurgias;
-	}
+	}	
 
 	public static int deletarAgendamento(TbAgendamentosCirurgias agendamento) {
 		int status = 0;

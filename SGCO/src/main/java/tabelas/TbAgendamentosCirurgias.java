@@ -1,7 +1,6 @@
 package tabelas;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class TbAgendamentosCirurgias {
@@ -9,15 +8,11 @@ public class TbAgendamentosCirurgias {
 	private String localCorpo;
 	private String tipoCirurgia;
 	private String statusAgendamento;
-	private LocalDateTime dataHora;
 	private String dataHoraString;
 	private Timestamp dataHoraViwer;
 	private String stgFkPaciente;
-	private int fkPaciente;
 	private String stgFkMedico;
-	private int fkMedico;
 	private String stgFkHospital;
-	private int fkHospital;
 
 
 	public int getIdAgendamento() {
@@ -52,29 +47,6 @@ public class TbAgendamentosCirurgias {
 		this.statusAgendamento = statusAgendamento;
 	}
 
-	public int getFkPaciente() {
-		return fkPaciente;
-	}
-
-	public void setFkPaciente(int fkPaciente) {
-		this.fkPaciente = fkPaciente;
-	}
-
-	public int getFkMedico() {
-		return fkMedico;
-	}
-
-	public void setFkMedico(int fkMedico) {
-		this.fkMedico = fkMedico;
-	}
-
-	public LocalDateTime getDataHora() {
-		return dataHora;
-	}
-
-	public void setDataHora(LocalDateTime dataHora) {
-		this.dataHora = dataHora;
-	}
 
 	public String getDataHoraString() {
 		return dataHoraString;
@@ -96,13 +68,6 @@ public class TbAgendamentosCirurgias {
         return dataHoraViwer.toLocalDateTime().format(formatter);
     }	
 
-	public int getFkHospital() {
-		return fkHospital;
-	}
-
-	public void setFkHospital(int fkHospital) {
-		this.fkHospital = fkHospital;
-	}
 
 	public String getStgFkPaciente() {
 		return stgFkPaciente;
@@ -128,6 +93,5 @@ public class TbAgendamentosCirurgias {
 		this.stgFkHospital = stgFkHospital;
 	}
 
-	
 
 }

@@ -112,7 +112,6 @@ function confirmarDelete(getIdComponente) {
 	String tipoPesquisa = request.getParameter("tipoPesquisa");
 	String valorPesquisa = request.getParameter("valorPesquisa");
 
-
 	List<TbComponentes> lista = ComponentesDao.getAllComponentes();
 	request.setAttribute("lista", lista);
 
@@ -150,10 +149,20 @@ function confirmarDelete(getIdComponente) {
 				<option value="Codigo">Codigo</option>
 				<option value="Descricao">Descrição</option>
 				<option value="CirurgiaUtilizada">Cirurgia Utilizada</option>
-			</select> 
-			<label id="labelDinamico"></label> 
-			<input type="submit" value="Pesquisar">
+			</select> <label id="labelDinamico"></label> <input type="submit"
+				value="Pesquisar">
 		</form>
+		<%
+		String msgBanco = (String) session.getAttribute("msgBanco");
+		%>
+		<%
+		if (msgBanco != null) {
+		%>
+		<label class="msgBanco"><%=msgBanco%></label>
+		<%
+		session.removeAttribute("msgBanco");
+		}
+		%>
 		<table border="1"
 			style="border-collapse: collapse; border: 0px solid Silver;">
 			<thead>

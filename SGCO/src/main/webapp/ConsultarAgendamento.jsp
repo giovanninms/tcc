@@ -19,8 +19,10 @@
             elemento.textContent = elemento.textContent.toUpperCase();
         });
     }
-
     window.onload = converterParaMaiusculas;
+    function ConsultarAgendamentoComponente(idAgendamento) {
+        window.location.href = "ConsultarAgendamentoComponente.jsp?id=" + idAgendamento;
+    }
 </script>
 </head>
 
@@ -54,7 +56,12 @@
 			alt="adicionar" class="btn-2" title="Cadastrar Agendamento" /></a>
 	</header>
 	<h2>Consultar Agendamentos</h2>
-	<main>
+	<main> 
+	<% String msgBanco = (String) session.getAttribute("msgBanco"); %>
+    <% if (msgBanco != null)  { 
+    %>
+       <label class="msgBanco" ><%= msgBanco %></label>
+           <%session.removeAttribute("msgBanco"); } %>
 		<table border="1"
 			style="border-collapse: collapse; border: 0px solid Silver;">
 			<thead>
@@ -78,15 +85,15 @@
 
 				<c:forEach items="${lista}" var="agendamento">
 
-					<tr>
+					<tr >
 						<td class="linhatabela colunacentralizar maiusculas">${agendamento.getIdAgendamento()}</td>
-						<td class="linhatabela maiusculas">${agendamento.getStgFkPaciente()}</td>
-						<td class="linhatabela maiusculas">${agendamento.getStgFkMedico()}</td>
-						<td class="linhatabela maiusculas">${agendamento.getStgFkHospital()}</td>
-						<td class="linhatabela maiusculas">${agendamento.getLocalCorpo()}</td>
-						<td class="linhatabela maiusculas">${agendamento.getTipoCirurgia()}</td>
-						<td class="linhatabela maiusculas">${agendamento.getDataHoraViwerFormatted()}</td>
-						<td class="linhatabela maiusculas">${agendamento.getStatusAgendamento()}</td>
+						<td class="linhatabela maiusculas" style="cursor: pointer;" onclick="ConsultarAgendamentoComponente(${agendamento.getIdAgendamento()})">${agendamento.getStgFkPaciente()}</td>
+						<td class="linhatabela maiusculas" style="cursor: pointer;" onclick="ConsultarAgendamentoComponente(${agendamento.getIdAgendamento()})">${agendamento.getStgFkMedico()}</td>
+						<td class="linhatabela maiusculas" style="cursor: pointer;" onclick="ConsultarAgendamentoComponente(${agendamento.getIdAgendamento()})">${agendamento.getStgFkHospital()}</td>
+						<td class="linhatabela maiusculas" style="cursor: pointer;" onclick="ConsultarAgendamentoComponente(${agendamento.getIdAgendamento()})">${agendamento.getLocalCorpo()}</td>
+						<td class="linhatabela maiusculas" style="cursor: pointer;" onclick="ConsultarAgendamentoComponente(${agendamento.getIdAgendamento()})">${agendamento.getTipoCirurgia()}</td>
+						<td class="linhatabela maiusculas" style="cursor: pointer;" onclick="ConsultarAgendamentoComponente(${agendamento.getIdAgendamento()})">${agendamento.getDataHoraViwerFormatted()}</td>
+						<td class="linhatabela maiusculas" style="cursor: pointer;" onclick="ConsultarAgendamentoComponente(${agendamento.getIdAgendamento()})">${agendamento.getStatusAgendamento()}</td>
 						<td style="background-color: #E1E5F2; border: 0;"><a
 							href="AlterarAgendamento.jsp?id=${agendamento.getIdAgendamento()}"><img
 								src="./img/editar.svg" alt="editar" class="btn-tabela"

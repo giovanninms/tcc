@@ -7,6 +7,7 @@
 <title>SGCO - Cadastrar Agendamento</title>
 <link href="styles.css" rel="stylesheet">
 <script>
+
 	const tipoCirurgiaPorLocaldoCorpo ={
 			joelho:["Artroscopia","Substituição de Articulação","lca","lcl","lcp","Menisco"],
 			quadril:["Artroscopia","Substituição de Articulação"],
@@ -30,17 +31,18 @@
 	        });
 	    }
 	}
-
+	
 </script>
 </head>
 <body>
 	<%@page
-		import="tabelas.TbAgendamentosCirurgias, dao.AgendamentosCirurgiasDao, java.text.*, java.sql.*,java.util.*"%>
+		import="tabelas.*, dao.*, java.text.*, java.sql.*,java.util.*"%>
 	<%
 	String usuario = (String) session.getAttribute("loginUsuario");
 	if (usuario == null) {
 		response.sendRedirect("Login.jsp");
 	}
+
 	%>
 	
 	<header>
@@ -58,7 +60,8 @@
     <% if (erroInsercao != null)  { 
     %>
        <label class="erroValidacao" ><%= erroInsercao %></label>
-    <%session.removeAttribute("erroInsercao"); } %>
+           <%session.removeAttribute("erroInsercao"); } %>
+       
 	<form action="GatilhoCadastrarAgendamento.jsp" method="post">
 
 		<table style="background-color: transparent">
@@ -79,6 +82,7 @@
 				<td colspan="3"><input type="text" name="stgFkHospital"
 					id="stgFkHospital"></td>
 			</tr>
+			
 			<tr>
 				<td>Local Corpo:</td>
 				<td><select class="selctNovoAgendamento" id="localCorpo"
@@ -90,10 +94,13 @@
 						<option value="ombro">Ombro</option>
 						<option value="tornozelo">Tornozelo</option>
 				</select></td>
+				
 				<td>Tipo Cirurgia:</td>
 				<td><select class="selctNovoAgendamento" id="tipoCirurgia"
 					name="tipoCirurgia"></select></td>
 			</tr>
+								
+			
 
 			<tr>
 				<td>Data e hora:</td>
@@ -108,10 +115,10 @@
 				</select></td>
 			</tr>
 			<tr>
-				<td><input class="btn-enviar" type="submit" value="Agendar"></td>
+				<td><input class="btn-enviar" type="submit" value="Agendar"  ></td>
 		</table>
-
-	</form>
+</form>
+	
 
 </body>
 </html>
